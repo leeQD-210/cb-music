@@ -14,3 +14,14 @@ export const getHotRecommend = () => {
     params: { limit: 8 }
   })
 }
+// 获取新上碟片
+export const getNewAlbums = (limit,offset) => {
+  return request({
+    method: 'get',
+    url: '/top/album',
+    params: {
+      limit,
+      offset
+    }
+  })
+}
