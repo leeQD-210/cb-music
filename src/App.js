@@ -1,10 +1,12 @@
 import CBMain from '@/pages/main'
+import { Provider } from 'react-redux'
+import store from './store'
 function App() {
   return (
-    <div className="App">
-          <CBMain></CBMain>
-    </div>
-  );
+    <Provider store={store}>
+      <CBMain></CBMain>
+    </Provider>
+  )
 }
 
-export default App;
+export default App

@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const FooterWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
+  width: 100%;
   height: 172px;
   background-color: #f2f2f2;
   color: #666;
@@ -13,7 +11,7 @@ export const FooterWrapper = styled.div`
     height: 100%;
     margin: 0 auto;
   }
-`;
+`
 export const FooterLeft = styled.div`
   width: 600px;
   padding-top: 20px;
@@ -37,10 +35,11 @@ export const FooterLeft = styled.div`
       }
     }
   }
-`;
+`
 export const FooterRight = styled.div`
   display: flex;
-  margin-left: 60px;
+  margin-left: 80px;
+  height: 85%;
   .item {
     display: flex;
     flex-direction: column;
@@ -77,7 +76,8 @@ export const FooterRight = styled.div`
       width: 60px;
       font-size: 12px;
       text-align: center;
+      margin-top: 10px;
       color: #ccc;
     }
   }
-`;
+`

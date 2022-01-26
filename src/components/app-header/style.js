@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 export const HeaderWrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 75px;
   background-color: #fddc6e;
   .content {
@@ -14,7 +14,7 @@ export const HeaderWrapper = styled.div`
   .divider {
     height: 5px;
     width: 100%;
-    background-color: red;
+    background-color:#C20C0C;
   }
 `
 export const HeaderLeft = styled.div`
@@ -60,7 +60,7 @@ export const HeaderLeft = styled.div`
           height: 0;
           border-top-width: 0;
           border: 10px solid transparent;
-          border-bottom-color: red;
+          border-bottom-color:#C20C0C;
         }
       }
       &:hover {
