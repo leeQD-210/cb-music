@@ -75,9 +75,16 @@ img {
 .sprite_02 {
   background: url('~@/assets/img/sprite_02.png') no-repeat 0 999px;
 }
-.sprite_icon{
+.sprite_icon {
   background: url('~@/assets/img/sprite_icon.png') no-repeat 0 999px;
 }
-.sprite_cover{
+.sprite_icon2 {
+  background: url('~@/assets/img/sprite_icon2.png') no-repeat 0 999px;
+}
+.sprite_cover {
   background: url('~@/assets/img/sprite_cover.png') no-repeat 0 999px;
 }
+.playbar_sprite {
+  background: url('~@/assets/img/playbar_sprite.png') no-repeat 0 999px;
+}
+

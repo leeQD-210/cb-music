@@ -14,7 +14,7 @@ export const HeaderWrapper = styled.div`
   .divider {
     height: 5px;
     width: 100%;
-    background-color:#C20C0C;
+    background-color:#fff;
   }
 `
 export const HeaderLeft = styled.div`
@@ -27,7 +27,7 @@ export const HeaderLeft = styled.div`
     margin-right: 30px;
     font-weight: 600;
     padding: 5px;
-    border: 3px dashed #fff;
+    border:3px dashed #e26b0a;
     border-radius: 10px;
   }
   .nav_list {
@@ -60,7 +60,7 @@ export const HeaderLeft = styled.div`
           height: 0;
           border-top-width: 0;
           border: 10px solid transparent;
-          border-bottom-color:#C20C0C;
+          border-bottom-color:#fff;
         }
       }
       &:hover {

@@ -48,6 +48,7 @@ export const BannerRight = styled.a.attrs({
 })`
   width: 270px;
   height: 100%;
-  background: url(${require('@/assets/img/download.png')});
+  background: url(${(props)=>props.rightImage});
   background-size: cover;
+  opacity: 0.7;
 `

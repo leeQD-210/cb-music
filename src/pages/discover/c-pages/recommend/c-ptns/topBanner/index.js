@@ -21,6 +21,7 @@ export default memo(function () {
   const bgImage =
     state.banners.length > 0 &&
     state.banners[currentIndex].imageUrl + '?imageView&blur=40x20'
+  const rightImage=require(`@/assets/img/download${currentIndex}.png`)
   return (
     <TopBannerWrapper bgImage={bgImage}>
       <div className="content">
@@ -39,7 +40,7 @@ export default memo(function () {
             )
           })}
         </Carousel>
-        <BannerRight></BannerRight>
+        <BannerRight rightImage={rightImage}></BannerRight>
         <button
           className="btn_left btn"
           onClick={(e) => carouselRef.current.prev()}
