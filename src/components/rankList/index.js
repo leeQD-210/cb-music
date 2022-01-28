@@ -1,13 +1,21 @@
 import React, { memo } from 'react'
 import { RankListWrapper, ListWrapper } from './style'
+import { useDispatch } from 'react-redux'
+import { changeSong } from '@/pages/player/store/actionCreator'
 import PropTypes from 'prop-types'
 const RankList = memo((props) => {
   const { title, info, stripe } = props
+  const dispatch = useDispatch()
+  const playSong = (id) => {
+    dispatch(changeSong(id))
+  }
   return (
     <RankListWrapper>
       <div className="header">
         <img src={info.imgUrl} alt="" className="image" />
-        <a href="/todo" className='sprite_cover image_cover'>{}</a>
+        <a href="/todo" className="sprite_cover image_cover">
+          {}
+        </a>
         <div className="info">
           <span className="title">{title}</span>
           <span className="control">
@@ -17,23 +25,29 @@ const RankList = memo((props) => {
         </div>
       </div>
       <ListWrapper stripe={stripe}>
-        {info.tracks&&info.tracks.slice(0, 10).map((item, index) => {
-          return (
-            <div className="item" key={item.id}>
-              {
-                <>
-                  <span className='index'>{index + 1}</span>
-                  <span className='name'>{item.name}</span>
-                  <span className='action'>
-                      <button className='btn sprite_02 play'></button>
-                      <button className='btn sprite_icon2 addto'></button>
-                      <button className='btn sprite_02 favor'></button>
-                  </span>
-                </>
-              }
-            </div>
-          )
-        })}
+        {info.tracks &&
+          info.tracks.slice(0, 10).map((item, index) => {
+            return (
+              <div className="item" key={item.id}>
+                {
+                  <>
+                    <span className="index">{index + 1}</span>
+                    <span className="name">{item.name}</span>
+                    <span className="action">
+                      <button
+                        className="btn sprite_02 play"
+                        onClick={(e) => {
+                          playSong(item.id)
+                        }}
+                      ></button>
+                      <button className="btn sprite_icon2 addto"></button>
+                      <button className="btn sprite_02 favor"></button>
+                    </span>
+                  </>
+                }
+              </div>
+            )
+          })}
         <div className="item bottom">
           <a href="/todo">查看全部 &gt;</a>
         </div>

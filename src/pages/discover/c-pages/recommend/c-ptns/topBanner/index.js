@@ -7,21 +7,31 @@ import { TopBannerWrapper, BannerRight, BannerControl } from './style'
 export default memo(function () {
   const [currentIndex, setCurrentIndex] = useState(0)
   const dispatch = useDispatch()
+  // 保存定时器实例
+  let timer = useRef()
   useEffect(() => {
     dispatch(getBanner())
-  }, [dispatch])
+    return () => {
+      clearTimeout(timer.current)
+    }
+  }, [dispatch, timer])
   const carouselRef = useRef()
   const state = useSelector(
     (state) => ({ banners: state.getIn(['recommend', 'banners']) }),
     shallowEqual
   )
-  const changeBg = useCallback((from, to) => {
-    setCurrentIndex(to)
-  }, [])
+  const changeBg = useCallback(
+    (from, to) => {
+      timer.current = setTimeout(() => {
+        setCurrentIndex(to)
+      }, 0)
+    },
+    [setCurrentIndex]
+  )
   const bgImage =
     state.banners.length > 0 &&
     state.banners[currentIndex].imageUrl + '?imageView&blur=40x20'
-  const rightImage=require(`@/assets/img/download${currentIndex}.png`)
+  const rightImage = require(`@/assets/img/download${currentIndex % 10}.png`)
   return (
     <TopBannerWrapper bgImage={bgImage}>
       <div className="content">
