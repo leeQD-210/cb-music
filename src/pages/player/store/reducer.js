@@ -140,18 +140,25 @@ const defaultState = Map({
     publishTime: 1461723397683
   },
   currentSongIndex: 0,
-  currentLyric: []
+  currentLyric: [],
+  // 0 顺序播放 1单曲循环 2 随机播放
+  playAction: 0,
+  lyricIndex: 0
 })
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.CHANGE_PLAY_LIST:
       return state.set('playList', action.playList)
     case actionTypes.CHANGE_CURRENT_SONG:
-      return state.set('currentSong', action.currentSong)
+      return state.set('currentSong',action.currentSong)
     case actionTypes.CHANGE_CURRENT_INDEX:
       return state.set('currentSongIndex', action.currentSongIndex)
     case actionTypes.CHANGE_CURRENT_LYRIC:
       return state.set('currentLyric', action.currentLyric)
+    case actionTypes.CHANGE_PLAY_ACTION:
+      return state.set('playAction', action.playAction)
+    case actionTypes.CHANGE_LYRIC_INDEX:
+      return state.set('lyricIndex', action.lyricIndex)
     default:
       return state
   }

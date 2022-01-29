@@ -27,7 +27,6 @@ export const HeaderLeft = styled.div`
     margin-right: 30px;
     font-weight: 600;
     padding: 5px;
-    border:3px dashed #e26b0a;
     border-radius: 10px;
   }
   .nav_list {
@@ -47,8 +46,7 @@ export const HeaderLeft = styled.div`
       .active {
         position: relative;
         background-color: #e26b0a;
-        border: 2px dashed #fff;
-        border-radius: 5px;
+        border-radius: 35px;
         &::after {
           display: block;
           content: '';
@@ -65,6 +63,7 @@ export const HeaderLeft = styled.div`
       }
       &:hover {
         cursor: pointer;
+        border-radius: 35px;
         background-color: #e26b0a;
       }
       :last-child {

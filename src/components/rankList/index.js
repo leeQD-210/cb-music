@@ -1,13 +1,16 @@
 import React, { memo } from 'react'
 import { RankListWrapper, ListWrapper } from './style'
 import { useDispatch } from 'react-redux'
-import { changeSong } from '@/pages/player/store/actionCreator'
+import { changeSong, addSong } from '@/pages/player/store/actionCreator'
 import PropTypes from 'prop-types'
 const RankList = memo((props) => {
   const { title, info, stripe } = props
   const dispatch = useDispatch()
   const playSong = (id) => {
     dispatch(changeSong(id))
+  }
+  const addSongById = (id) => {
+    dispatch(addSong(id))
   }
   return (
     <RankListWrapper>
@@ -40,7 +43,10 @@ const RankList = memo((props) => {
                           playSong(item.id)
                         }}
                       ></button>
-                      <button className="btn sprite_icon2 addto"></button>
+                      <button
+                        className="btn sprite_icon2 addto"
+                        onClick={(e) => {addSongById(item.id)}}
+                      ></button>
                       <button className="btn sprite_02 favor"></button>
                     </span>
                   </>

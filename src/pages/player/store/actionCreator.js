@@ -6,8 +6,7 @@ const changePlayList = (playList) => ({
   type: actionTypes.CHANGE_PLAY_LIST,
   playList: playList
 })
-// 切换当前歌曲
-export const changeCurrentSong = (songDetail) => ({
+const changeCurrentSong = (songDetail) => ({
   type: actionTypes.CHANGE_CURRENT_SONG,
   currentSong: songDetail
 })
@@ -21,10 +20,22 @@ const changeCurrentLyric = (lyric) => ({
   type: actionTypes.CHANGE_CURRENT_LYRIC,
   currentLyric: lyric
 })
+// 切换播放顺序
+export const changePlayAction = (action) => ({
+  type: actionTypes.CHANGE_PLAY_ACTION,
+  playAction: action
+})
+// 切换歌词索引
+export const changeLyricIndex = (index) => ({
+  type: actionTypes.CHANGE_LYRIC_INDEX,
+  lyricIndex: index
+})
 // 播放列表添加歌曲信息
 export const addSong = (id) => {
   return (dispatch, getState) => {
     const playList = getState().getIn(['player', 'playList'])
+    const index = playList.findIndex((item) => item.id === id)
+    if (index > -1) return
     getSongDetail(id).then((res) => {
       dispatch(changePlayList([...playList, ...res.songs]))
     })
@@ -37,14 +48,12 @@ export const changeSong = (id) => {
     const index = playList.findIndex((item) => item.id === id)
     if (index > -1) {
       dispatch(changeCurrentSongIndex(index))
-      return dispatch(changeCurrentSong(playList[index]))
     } else {
       getSongDetail(id).then((res) => {
         dispatch(changePlayList([...playList, ...res.songs]))
-        // 切换当前歌曲
-        dispatch(changeCurrentSong(res.songs[0]))
         // 切换当前歌曲索引
         dispatch(changeCurrentSongIndex(playList.length))
+        dispatch(changeCurrentSong(res.songs[0]))
       })
     }
   }
@@ -56,6 +65,9 @@ export const changeSongIndex = (index) => {
     if (playList[index]) {
       dispatch(changeCurrentSongIndex(index))
       dispatch(changeCurrentSong(playList[index]))
+    } else {
+      dispatch(changeCurrentSong({}))
+      dispatch(changeCurrentLyric([]))
     }
   }
 }
@@ -65,5 +77,29 @@ export const getLyric = (id) => {
     getSongLyric(id).then((res) => {
       dispatch(changeCurrentLyric(parseLyric(res.lrc.lyric)))
     })
+  }
+}
+// 从播放列表中删除歌曲
+export const deleteSong = (type, index) => {
+  return (dispatch, getState) => {
+    const playList = getState().getIn(['player', 'playList'])
+    switch (type) {
+      case 'single':
+        console.log(111)
+        playList.splice(index)
+        dispatch(changePlayList(playList))
+        if (playList[index - 1]) {
+          dispatch(changeSongIndex(index - 1))
+        } else {
+          dispatch(changeSongIndex(index))
+        }
+        break
+      case 'all':
+        dispatch(changePlayList([]))
+        dispatch(changeSongIndex(0))
+        break
+      default:
+        return '其他操作'
+    }
   }
 }
