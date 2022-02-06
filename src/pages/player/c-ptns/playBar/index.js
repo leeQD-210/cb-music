@@ -1,39 +1,39 @@
-import React, { useState, memo, useEffect, useRef, useCallback } from 'react'
-import { shallowEqual, useSelector, useDispatch } from 'react-redux'
-import { CBPlayerWrapper } from './style'
-import { message } from 'antd'
-import { Slider } from 'antd'
-import { handleDurationTime } from '@/utils'
-import { getPlayUrl } from '@/api/player'
-import PlayPanel from '../playPanel'
+import React, { useState, memo, useEffect, useRef, useCallback } from 'react';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { CBPlayerWrapper } from './style';
+import { message } from 'antd';
+import { Slider } from 'antd';
+import { handleDurationTime } from '@/utils';
+import { getPlayUrl } from '@/api/player';
+import PlayPanel from '../playPanel';
 import {
   getLyric,
   changeSongIndex,
   changePlayAction,
-  changeLyricIndex
-} from '../../store/actionCreator'
-import classnames from 'classnames'
+  changeLyricIndex,
+} from '../../store/actionCreator';
+import classnames from 'classnames';
 import {
   StepBackwardOutlined,
   CaretRightOutlined,
   PauseOutlined,
-  StepForwardOutlined
-} from '@ant-design/icons'
+  StepForwardOutlined,
+} from '@ant-design/icons';
 export default memo(function CBPlayer() {
   // 控制播放状态
-  const [isPlay, setIsPlay] = useState(false)
+  const [isPlay, setIsPlay] = useState(false);
   //   当前播放时间
-  const [currentTime, setCurrenTime] = useState('00:00')
+  const [currentTime, setCurrenTime] = useState('00:00');
   //   进度条
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
   //   进度条拖动
-  const [isSliderChanging, setSliderChanging] = useState(false)
+  const [isSliderChanging, setSliderChanging] = useState(false);
   // 歌曲时长
-  const [duration, setDuration] = useState(0)
+  const [duration, setDuration] = useState(0);
   // 显示播放面板
-  const [showPanel, setShowPanel] = useState(false)
+  const [showPanel, setShowPanel] = useState(false);
   // 显示音量滑动条
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false)
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   //   获取当前歌曲
   const state = useSelector((state) => {
     return {
@@ -42,161 +42,153 @@ export default memo(function CBPlayer() {
       currentLyric: state.getIn(['player', 'currentLyric']),
       currentSongIndex: state.getIn(['player', 'currentSongIndex']),
       playAction: state.getIn(['player', 'playAction']),
-      lyricIndex: state.getIn(['player', 'lyricIndex'])
-    }
-  }, shallowEqual)
-  const radioRef = useRef()
-  const [volume, setVolume] = useState(0)
-  const initPlay = useRef(false)
-  const dispatch = useDispatch()
+      lyricIndex: state.getIn(['player', 'lyricIndex']),
+    };
+  }, shallowEqual);
+  const radioRef = useRef();
+  const [volume, setVolume] = useState(0);
+  const initPlay = useRef(false);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (!state.currentSong.id) return
-    setDuration(state.currentSong.dt)
-    radioRef.current.src = getPlayUrl(state.currentSong.id || '')
-    dispatch(getLyric(state.currentSong.id))
+    if (!state.currentSong.id) return;
+    setDuration(state.currentSong.dt);
+    radioRef.current.src = getPlayUrl(state.currentSong.id || '');
+    dispatch(getLyric(state.currentSong.id));
     if (initPlay.current) {
       radioRef.current
         .play()
         .then(() => {
-          setIsPlay(true)
+          setIsPlay(true);
         })
         .catch((err) => {
-          setIsPlay(false)
-          message.error('播放失败，请尝试其他歌曲！')
-        })
+          setIsPlay(false);
+          message.error('播放失败，请尝试其他歌曲！');
+        });
     } else {
-      initPlay.current = true
+      initPlay.current = true;
     }
-  }, [state.currentSong, dispatch])
+  }, [state.currentSong, dispatch]);
   //  播放歌曲
   const changePlay = () => {
     if (!state.currentSong.id) {
-      return message.info('请添加歌曲！')
+      return message.info('请添加歌曲！');
     }
-    setIsPlay(!isPlay)
+    setIsPlay(!isPlay);
     // 播放状态，执行暂停
     if (isPlay) {
-      radioRef.current.pause()
+      radioRef.current.pause();
     } else {
       radioRef.current.play().catch((err) => {
-        setIsPlay(false)
-        message.error('播放失败，请尝试其他歌曲！')
-      })
+        setIsPlay(false);
+        message.error('播放失败，请尝试其他歌曲！');
+      });
     }
-  }
+  };
   //   切换歌曲
   const changeSong = (type) => {
-    const currentIndex = state.currentSongIndex
+    const currentIndex = state.currentSongIndex;
     switch (type) {
       case 'prev':
         if (currentIndex > 0) {
-          dispatch(changeSongIndex(currentIndex - 1))
+          dispatch(changeSongIndex(currentIndex - 1));
         } else {
-          message.error('当前歌曲已是第一首！')
+          message.error('当前歌曲已是第一首！');
         }
-        break
+        break;
       case 'next':
         if (currentIndex < state.playList.length - 1) {
-          dispatch(changeSongIndex(currentIndex + 1))
+          dispatch(changeSongIndex(currentIndex + 1));
         } else {
-          message.error('当前歌曲已是最后一首！')
+          message.error('当前歌曲已是最后一首！');
         }
-        break
+        break;
       default:
-        return '其他操作'
+        return '其他操作';
     }
-  }
+  };
   //   播放歌曲时间变化
   const timeUpdate = (e) => {
-    const currentTime = e.target.currentTime * 1000
+    const currentTime = e.target.currentTime * 1000;
     if (!isSliderChanging) {
-      setCurrenTime(handleDurationTime(currentTime))
-      const percent = parseInt((currentTime / state.currentSong.dt) * 100)
-      setProgress(percent)
+      setCurrenTime(handleDurationTime(currentTime));
+      const percent = parseInt((currentTime / state.currentSong.dt) * 100);
+      setProgress(percent);
     }
-    let i = 0
+    let i = 0;
     while (i < state.currentLyric.length) {
       if (currentTime < state.currentLyric[i].time) {
-        break
+        break;
       }
-      i++
+      i++;
     }
-    const currentLyricIndex = i > 0 ? i - 1 : 0
+    const currentLyricIndex = i > 0 ? i - 1 : 0;
     if (currentLyricIndex !== state.lyricIndex) {
-      dispatch(changeLyricIndex(currentLyricIndex))
+      dispatch(changeLyricIndex(currentLyricIndex));
     }
-    message.open({
-      content: state.currentLyric[currentLyricIndex]
-        ? state.currentLyric[currentLyricIndex].content
-        : '哦豁呐',
-      duration: 0,
-      key: 'lyric',
-      className: 'lyric_message'
-    })
-  }
+  };
   // 播放结束
   const handleTimeEnded = () => {
     switch (state.playAction) {
       case 0:
         if (state.playList[state.currentSongIndex + 1]) {
-          dispatch(changeSongIndex(state.currentSongIndex + 1))
+          dispatch(changeSongIndex(state.currentSongIndex + 1));
         } else {
           state.currentSongIndex === 0
             ? radioRef.current.play()
-            : dispatch(changeSongIndex(0))
+            : dispatch(changeSongIndex(0));
         }
-        break
+        break;
       case 1:
         radioRef.current.play().catch((err) => {
-          message.error('播放失败，请尝试其他歌曲')
-        })
-        break
+          message.error('播放失败，请尝试其他歌曲');
+        });
+        break;
       case 2:
-        const endIndex = state.playList.length - 1
-        const randomIndex = Math.round(Math.random() * endIndex)
-        dispatch(changeSongIndex(randomIndex))
-        break
+        const endIndex = state.playList.length - 1;
+        const randomIndex = Math.round(Math.random() * endIndex);
+        dispatch(changeSongIndex(randomIndex));
+        break;
       default:
-        return '其他操作'
+        return '其他操作';
     }
-  }
+  };
   //  进度条变化
   const handleSliderChange = useCallback(
     (val) => {
-      const percent = val / 100
-      const currentTime = (duration * percent) / 1000
-      radioRef.current.currentTime = currentTime
-      setCurrenTime(handleDurationTime(currentTime * 1000))
-      setProgress(val)
-      setSliderChanging(true)
+      const percent = val / 100;
+      const currentTime = (duration * percent) / 1000;
+      radioRef.current.currentTime = currentTime;
+      setCurrenTime(handleDurationTime(currentTime * 1000));
+      setProgress(val);
+      setSliderChanging(true);
     },
     [duration]
-  )
+  );
   const afterSliderChange = useCallback(
     (val) => {
-      const percent = val / 100
-      const currentTime = (duration * percent) / 1000
-      radioRef.current.currentTime = currentTime
-      setCurrenTime(handleDurationTime(currentTime * 1000))
-      setProgress(val)
-      setSliderChanging(false)
+      const percent = val / 100;
+      const currentTime = (duration * percent) / 1000;
+      radioRef.current.currentTime = currentTime;
+      setCurrenTime(handleDurationTime(currentTime * 1000));
+      setProgress(val);
+      setSliderChanging(false);
       if (!isPlay) {
-        setIsPlay(true)
-        radioRef.current.play()
+        setIsPlay(true);
+        radioRef.current.play();
       }
     },
     [duration, isPlay]
-  )
+  );
   const handlePlayAction = () => {
     if (state.playAction === 2) {
-      return dispatch(changePlayAction(0))
+      return dispatch(changePlayAction(0));
     }
-    dispatch(changePlayAction(state.playAction + 1))
-  }
+    dispatch(changePlayAction(state.playAction + 1));
+  };
   const handleVolumeChange = (val) => {
-    setVolume(val)
-    radioRef.current.colume = val
-  }
+    setVolume(val / 100);
+    radioRef.current.volume = val / 100;
+  };
   return (
     <CBPlayerWrapper className="playbar_sprite">
       <div className="content">
@@ -263,22 +255,23 @@ export default memo(function CBPlayer() {
             <i
               className="iconfont icon-favor"
               onClick={(e) => {
-                message.error('功能尚未开发，别瞎点')
+                message.error('功能尚未开发，别瞎点');
               }}
             ></i>
             <i
               className="iconfont icon-share"
               onClick={(e) => {
-                message.error('功能尚未开发，别瞎点')
+                message.error('功能尚未开发，别瞎点');
               }}
             ></i>
             <i
               className="iconfont icon-volume"
               onClick={(e) => {
-                setShowVolumeSlider(!showVolumeSlider)
-                setVolume(radioRef.current.volume)
+                setShowVolumeSlider(!showVolumeSlider);
+                setVolume(radioRef.current.volume);
               }}
-            ></i>
+            >
+            </i>
             <i
               className={classnames(
                 'iconfont',
@@ -290,29 +283,34 @@ export default memo(function CBPlayer() {
             <i
               className="iconfont icon-playlist"
               onClick={(e) => {
-                setShowPanel(!showPanel)
+                setShowPanel(!showPanel);
               }}
             ></i>
             <span className="playlist_length">{state.playList.length}</span>
+            {showVolumeSlider && (
+                <Slider
+                  value={volume * 100}
+                  vertical
+                  className="volume_slider"
+                  onChange={handleVolumeChange}
+                ></Slider>
+              )}
+            <div className="lyric">
+              {(state.currentLyric[state.lyricIndex] &&
+                state.currentLyric[state.lyricIndex].content) ||
+                '哦豁呐'}
+            </div>
           </div>
           <audio
             ref={radioRef}
             onTimeUpdate={(e) => {
-              timeUpdate(e)
+              timeUpdate(e);
             }}
             onEnded={handleTimeEnded}
           ></audio>
-          {showVolumeSlider && (
-            <Slider
-              value={volume}
-              vertical
-              className="volume_slider"
-              onChange={handleVolumeChange}
-            ></Slider>
-          )}
           {showPanel && <PlayPanel></PlayPanel>}
         </div>
       </div>
     </CBPlayerWrapper>
-  )
-})
+  );
+});

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const CBPlayerWrapper = styled.div`
   position: fixed;
   bottom: 0;
@@ -13,11 +13,13 @@ export const CBPlayerWrapper = styled.div`
     height: 100%;
     margin: 0 auto;
     .aliasName {
-      position: absolute;
-      left: 200px;
+      position: fixed;
+      left: 0;
+      bottom: 0;
       height: 52px;
       line-height: 55px;
-      width: auto;
+      width: calc(50vw - 500px);
+      text-align: center;
       font-weight: 600;
     }
     .control {
@@ -114,6 +116,9 @@ export const CBPlayerWrapper = styled.div`
           top: -3px;
           font-size: 25px;
         }
+        .icon-volume {
+          position: relative;
+        }
         .icon-playlist {
           position: relative;
           top: -2px;
@@ -146,34 +151,55 @@ export const CBPlayerWrapper = styled.div`
           top: 10px;
           font-weight: 500;
         }
-      }
-      .volume_slider {
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 20px;
-        bottom: 52px;
-        right: 512px;
-        height: 100px;
-        margin: unset;
-        background-color:rgba(0,0,0,0.2);
-        border-radius: 3px;
-        z-index: 999;
-        .ant-slider-rail {
-          background-color: #000;
-        }
-        .ant-slider-track {
-          background-color: #e26b0a;
-        }
-        .ant-slider-step {
-        }
-        .ant-slider-handle {
+        .volume_slider {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 20px;
+          top: -112px;
+          left: 92px;
+          height: 100px;
           margin: unset;
-          background-color: #e26b0a;
-          border: unset;
+          background-color: rgba(1, 1, 1, 0.8);
+          border-radius: 3px;
+          z-index: 999;
+          .ant-slider-rail {
+            background-color: #000;
+          }
+          .ant-slider-track {
+            background-color: #e26b0a;
+          }
+          .ant-slider-step {
+          }
+          .ant-slider-handle {
+            margin: unset;
+            background-color: #e26b0a;
+            border: unset;
+            width: 10px;
+            height: 10px;
+          }
+        }
+        .lyric {
+          position: fixed;
+          right: 0;
+          bottom: 0;
+          width: calc(50vw - 550px);
+          text-align: center;
+          height: 52px;
+          color: #000;
+          font-weight: 600;
+          line-height: 52px;
+          overflow-x: scroll;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE 10+ */
         }
       }
     }
   }
-`
+`;

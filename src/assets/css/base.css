@@ -89,27 +89,3 @@ img {
 }
 
 /* antd样式 */
-.lyric_message {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  height: 52px;
-  width: 426px;
-  padding: unset;
-}
-.lyric_message .ant-message-notice-content {
-  background-color: unset;
-  box-shadow: unset;
-  color: #000;
-  font-weight: 600;
-  width: 100%;
-  height: 100%;
-  padding: unset;
-}
-.lyric_message .ant-message-notice-content .ant-message-custom-content {
-  width: 100%;
-  height: 100%;
-  line-height: 55px;
-  padding: 0 20px;
-}

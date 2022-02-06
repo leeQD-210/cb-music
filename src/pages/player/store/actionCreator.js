@@ -47,7 +47,7 @@ export const changeSong = (id) => {
     const playList = getState().getIn(['player', 'playList'])
     const index = playList.findIndex((item) => item.id === id)
     if (index > -1) {
-      dispatch(changeCurrentSongIndex(index))
+      dispatch(changeSongIndex(index))
     } else {
       getSongDetail(id).then((res) => {
         dispatch(changePlayList([...playList, ...res.songs]))

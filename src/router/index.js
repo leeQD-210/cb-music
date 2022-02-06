@@ -32,14 +32,9 @@ const routes = [
     component: CBSearch,
     routes: [
       {
-        path: '/search',
-        exact: true,
-        render: () => <Redirect to={'/search/songs'}></Redirect>
-      },
-      {
         path: '/search/songs',
         exact: true,
-        render: SearchSongs
+        component: SearchSongs
       }
     ]
   }
