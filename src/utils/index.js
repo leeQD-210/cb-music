@@ -11,7 +11,9 @@ export function handleCount(count) {
 // 处理持续时间
 export function handleDurationTime(time) {
   const totalSeconds = parseInt(time / 1000)
-  const totalMinutes = parseInt(time / 1000 / 60).toString().padStart(2, '0')
+  const totalMinutes = parseInt(time / 1000 / 60)
+    .toString()
+    .padStart(2, '0')
   const seconds = (totalSeconds % 60).toString().padStart(2, '0')
   return totalMinutes + ':' + seconds
 }

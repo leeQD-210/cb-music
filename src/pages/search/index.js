@@ -1,24 +1,30 @@
-import React, { memo, Suspense, useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
-import { SearchWrapper } from './style';
-import { Input } from 'antd';
-import { searchLink } from '@/api/localData';
-import { useHistory } from 'react-router-dom';
+import React, { memo, Suspense, useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
+import { renderRoutes } from 'react-router-config'
+import { SearchWrapper } from './style'
+import { Input } from 'antd'
+import { searchLink } from '@/api/localData'
+import { useHistory } from 'react-router-dom'
 export default memo(function CBSearch(props) {
   const onSearch = (val) => {
-    setkeyWords(val);
-  };
-  const [keywords, setkeyWords] = useState('');
-  const history = useHistory();
+    setkeyWords(val)
+  }
+  const [keywords, setkeyWords] = useState(
+    new URLSearchParams(props.location.search).get('keywords')
+  )
+  const [searchValue, setSearchValue] = useState(
+    new URLSearchParams(props.location.search).get('keywords')
+  )
+  const history = useHistory()
   useEffect(() => {
+    console.log(props.location.pathname)
     if (props.location.pathname === '/search') {
-      history.push(`/search/songs?keywords=${keywords}`);
+      history.push(`/search/songs?keywords=${keywords}`)
     } else {
-      history.push(props.location.pathname + `?keywords=${keywords}`);
+      history.push(props.location.pathname + `?keywords=${keywords}`)
     }
-  }, [keywords, props.location.pathname, history]);
-  const { Search } = Input;
+  }, [keywords, props.location.pathname, history])
+  const { Search } = Input
   return (
     <SearchWrapper>
       <div className="search_input">
@@ -27,6 +33,8 @@ export default memo(function CBSearch(props) {
           onSearch={onSearch}
           enterButton
           className="input_box"
+          onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
         />
       </div>
       <div className="search_nav">
@@ -39,7 +47,7 @@ export default memo(function CBSearch(props) {
             >
               {item.title}
             </NavLink>
-          );
+          )
         })}
       </div>
       <div className="search_content">
@@ -48,5 +56,5 @@ export default memo(function CBSearch(props) {
         </Suspense>
       </div>
     </SearchWrapper>
-  );
-});
+  )
+})

@@ -107,7 +107,7 @@ export const searchLink = [
   {
     id: 2,
     title: '歌手',
-    link: '/search/artist',
+    link: '/search/artists',
   },
   {
     id: 3,
@@ -117,12 +117,12 @@ export const searchLink = [
   {
     id: 4,
     title: '视频',
-    link: '/search/video',
+    link: '/search/videos',
   },
   {
     id: 5,
     title: '歌词',
-    link: '/search/lyric',
+    link: '/search/lyrics',
   },
   {
     id: 6,

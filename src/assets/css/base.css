@@ -81,6 +81,9 @@ img {
 .sprite_icon2 {
   background: url('~@/assets/img/sprite_icon2.png') no-repeat 0 999px;
 }
+.sprite_icon3 {
+  background: url('~@/assets/img/sprite_icon3.png') no-repeat 0 999px;
+}
 .sprite_cover {
   background: url('~@/assets/img/sprite_cover.png') no-repeat 0 999px;
 }

@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 export const HeaderWrapper = styled.div`
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 75px;
   background-color: #fddc6e;
+  z-index: 999;
   .content {
     width: 1100px;
     height: 70px;
@@ -14,7 +17,7 @@ export const HeaderWrapper = styled.div`
   .divider {
     height: 5px;
     width: 100%;
-    background-color:#fff;
+    background-color: #fff;
   }
 `
 export const HeaderLeft = styled.div`
@@ -58,7 +61,7 @@ export const HeaderLeft = styled.div`
           height: 0;
           border-top-width: 0;
           border: 10px solid transparent;
-          border-bottom-color:#fff;
+          border-bottom-color: #fff;
         }
       }
       &:hover {

@@ -1,17 +1,13 @@
-import React, { memo } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import { Input, Button } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { headerLinks } from '@/api/localData'
 import { HeaderWrapper, HeaderLeft, HeaderRight } from './style'
 export default memo(function CBAppHeader() {
   const showItem = (item, index) => {
     if (index < 3) {
-      return (
-        <NavLink to={item.link} >
-          {item.title}
-        </NavLink>
-      )
+      return <NavLink to={item.link}>{item.title}</NavLink>
     } else {
       return (
         <a href={item.link} target="_blank" rel="noopener noreferrer">
@@ -19,6 +15,12 @@ export default memo(function CBAppHeader() {
         </a>
       )
     }
+  }
+  const [keywords, setKeywords] = useState('')
+  const history = useHistory()
+  const inputRef = useRef()
+  const handleSearch = (e) => {
+    history.push(`/search/songs?keywords=${keywords}`)
   }
   return (
     <HeaderWrapper>
@@ -39,13 +41,19 @@ export default memo(function CBAppHeader() {
           <Input
             className="search"
             placeholder="音乐/视频/电台/用户"
-            prefix={<SearchOutlined />}
+            prefix={<SearchOutlined onClick={handleSearch} />}
+            onPressEnter={handleSearch}
+            onChange={(e) => {
+              setKeywords(e.target.value)
+            }}
+            ref={inputRef}
+            value={keywords}
           ></Input>
           <Button className="create_center">创作者中心</Button>
           <span className="login">登录</span>
         </HeaderRight>
       </div>
-      <div className='divider'></div>
+      <div className="divider"></div>
     </HeaderWrapper>
   )
 })

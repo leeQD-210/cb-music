@@ -1,11 +1,13 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const SearchWrapper = styled.div`
   width: 1000px;
   height: auto;
+  min-height: 800px;
   margin: 0 auto;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   background-color: #fff;
+  margin-top: 75px;
   .search_input {
     width: 400px;
     margin: 0 auto;
@@ -49,7 +51,7 @@ export const SearchWrapper = styled.div`
     }
   }
   .search_content {
-    width: 864px;
+    width: 865px;
     margin: 0 auto;
   }
-`;
+`

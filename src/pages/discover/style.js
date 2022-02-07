@@ -3,6 +3,10 @@ export const DiscoverWrapper = styled.div`
   width: 100%;
 `
 export const TopWrapper = styled.div`
+  position: fixed;
+  top: 75px;
+  width: 100%;
+  z-index: 999;
   display: flex;
   justify-content: center;
   height: 30px;
@@ -32,4 +36,6 @@ export const TopWrapper = styled.div`
     }
   }
 `
-export const MainWrapper = styled.div``
+export const MainWrapper = styled.div`
+  margin-top: 105px;
+`

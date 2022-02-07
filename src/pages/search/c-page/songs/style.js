@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const SongsWrapper = styled.div`
   padding: 10px 0;
   .content {
@@ -43,12 +43,12 @@ export const SongsWrapper = styled.div`
       .action_box {
         display: none;
         .iconfont {
-					font-size: 18px;
+          font-size: 18px;
           margin-right: 10px;
         }
       }
       &:hover {
-				cursor: pointer;
+        cursor: pointer;
         .action_box {
           display: block;
         }
@@ -58,8 +58,19 @@ export const SongsWrapper = styled.div`
       }
     }
     .pagination_wrapper {
-      margin-top: 15px;
+      margin-top: 5px;
       text-align: right;
     }
+    .not_found {
+      width: 100%;
+      text-align: center;
+      font-size: 25px;
+      font-weight: 600;
+      margin-top: 200px;
+      .iconfont {
+        font-size: 25px;
+        margin-right: 10px;
+      }
+    }
   }
-`;
+`

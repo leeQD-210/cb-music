@@ -1,54 +1,54 @@
-import React, { memo, useEffect,useState } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { searchSongs } from '../../store/actionCreator';
-import { SongsWrapper } from './style';
-import { handleDurationTime } from '@/utils';
-import { message, Pagination } from 'antd';
-import { changeSong } from '../../../player/store/actionCreator';
+import React, { memo, useEffect, useState } from 'react'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
+import { searchKeywords } from '../../store/actionCreator'
+import { SongsWrapper } from './style'
+import { handleDurationTime } from '@/utils'
+import { message, Pagination } from 'antd'
+import { changeSong } from '../../../player/store/actionCreator'
 export default memo(function SearchSongs(props) {
-  const keywords = new URLSearchParams(props.location.search).get('keywords');
-  const [pageNo, setPageNo] = useState(1);
+  const keywords = new URLSearchParams(props.location.search).get('keywords')
+  const [pageNo, setPageNo] = useState(1)
   const state = useSelector(
     (state) => ({
       searchSongs: state.getIn(['search', 'searchSongs']),
-      total: state.getIn(['search', 'total']),
+      songsTotal: state.getIn(['search', 'songsTotal'])
     }),
     shallowEqual
-  );
-  const dispatch = useDispatch();
+  )
+  const dispatch = useDispatch()
   useEffect(() => {
     if (keywords) {
-      dispatch(searchSongs(keywords));
+      dispatch(searchKeywords(keywords, 1, 14, 1))
     }
-  }, [dispatch, keywords]);
+  }, [dispatch, keywords])
   const handlePageChange = (page) => {
     setPageNo(page)
-    dispatch(searchSongs(keywords, page));
-  };
+    dispatch(searchKeywords(keywords, page, 14, 1))
+  }
   const handlePlay = (id) => {
-    dispatch(changeSong(id));
-  };
+    dispatch(changeSong(id))
+  }
   const clickFavor = () => {
-    message.error('功能尚未开发，别瞎点');
-  };
+    message.error('功能尚未开发，别瞎点')
+  }
   const clickDownload = (e) => {
-    message.error('功能尚未开发，别瞎点');
-  };
+    message.error('功能尚未开发，别瞎点')
+  }
   const clickShare = () => {
-    message.error('功能尚未开发，别瞎点');
-  };
+    message.error('功能尚未开发，别瞎点')
+  }
   return (
     <SongsWrapper>
       <div className="content">
-        {state.searchSongs &&
+        {state.searchSongs.length > 0 &&
           state.searchSongs.map((item) => {
             return (
-              <div className="item" key="item.id">
+              <div className="item" key={item.id}>
                 <div className="left">
                   <i
                     className="iconfont icon-playfill"
                     onClick={(e) => {
-                      handlePlay(item.id);
+                      handlePlay(item.id)
                     }}
                   ></i>
                   <span>{item.name}</span>
@@ -69,17 +69,25 @@ export default memo(function SearchSongs(props) {
                   </span>
                 </div>
               </div>
-            );
+            )
           })}
-        <Pagination
-          defaultCurrent={pageNo}
-          total={state.total}
-          defaultPageSize={12}
-          showSizeChanger={false}
-          onChange={handlePageChange}
-          className="pagination_wrapper"
-        ></Pagination>
+        {state.searchSongs.length > 0 && (
+          <Pagination
+            defaultCurrent={pageNo}
+            total={state.songsTotal}
+            defaultPageSize={14}
+            showSizeChanger={false}
+            onChange={handlePageChange}
+            className="pagination_wrapper"
+          ></Pagination>
+        )}
+        {state.searchSongs.length === 0 && (
+          <span className="not_found">
+            <i className="iconfont icon-cry"></i>很抱歉，没有找到您搜索的内容！
+            <span style={{ fontSize: 12 }}>(你看你搜的啥玩意？？？)</span>
+          </span>
+        )}
       </div>
     </SongsWrapper>
-  );
-});
+  )
+})
