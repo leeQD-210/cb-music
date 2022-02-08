@@ -49,7 +49,7 @@ export const HeaderLeft = styled.div`
       .active {
         position: relative;
         background-color: #e26b0a;
-        border-radius: 35px;
+        border-radius: 50%;
         &::after {
           display: block;
           content: '';

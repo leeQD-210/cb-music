@@ -1,13 +1,11 @@
 import styled from 'styled-components'
-export const SongsWrapper = styled.div`
-  padding: 10px 0;
-  .content {
+export const SearchLyricsWrapper = styled.div`
+  padding: 20px 0;
+  .pagination_wrapper {
     width: 100%;
-    .pagination_wrapper {
-      margin-top: 5px;
-      text-align: right;
-    }
-    .not_found {
+    text-align: right;
+  }
+  .not_found {
       width: 100%;
       text-align: center;
       font-size: 25px;
@@ -18,5 +16,4 @@ export const SongsWrapper = styled.div`
         margin-right: 10px;
       }
     }
-  }
 `

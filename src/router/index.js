@@ -4,11 +4,18 @@ const CBDiscover = React.lazy((_) => import('@/pages/discover'))
 const CBRecommend = React.lazy((_) =>
   import('@/pages/discover/c-pages/recommend')
 )
+const CBRanking = React.lazy(_=>import('@/pages/discover/c-pages/ranking'))
 const CBSearch = React.lazy((_) => import('@/pages/search'))
 const SearchSongs = React.lazy((_) => import('@/pages/search/c-page/songs'))
 const SearchArtists = React.lazy((_) => import('@/pages/search/c-page/artists'))
 const SearchAlbums = React.lazy((_) => import('@/pages/search/c-page/albums'))
 const SearchVideos = React.lazy((_) => import('@/pages/search/c-page/videos'))
+const SearchLyrics = React.lazy((_) => import('@/pages/search/c-page/lyrics'))
+const SearchSongsWrap = React.lazy((_) =>
+  import('@/pages/search/c-page/songsWrap')
+)
+const SearchDj = React.lazy((_) => import('@/pages/search/c-page/dj'))
+const SearchUser = React.lazy((_) => import('@/pages/search/c-page/users'))
 const routes = [
   {
     path: '/',
@@ -27,7 +34,11 @@ const routes = [
       {
         path: '/discover/recommend',
         component: CBRecommend
-      }
+      },
+      {
+        path: '/discover/ranking',
+        component: CBRanking
+      },
     ]
   },
   {
@@ -53,6 +64,26 @@ const routes = [
         path: '/search/videos',
         exact: true,
         component: SearchVideos
+      },
+      {
+        path: '/search/lyrics',
+        exact: true,
+        component: SearchLyrics
+      },
+      {
+        path: '/search/songswrap',
+        exact: true,
+        component: SearchSongsWrap
+      },
+      {
+        path: '/search/dj',
+        exact: true,
+        component: SearchDj
+      },
+      {
+        path: '/search/user',
+        exact: true,
+        component: SearchUser
       }
     ]
   }

@@ -15,7 +15,7 @@ export const CoverWrapper = styled.div`
     left: 0;
     width: ${(props) => props.coverWidth};
     height: ${(props) => props.imgHeight};
-    background-position: 0 ${props=>props.positionHeight};
+    background-position: 0 ${(props) => props.positionHeight};
   }
   .name {
     overflow: hidden;

@@ -127,7 +127,7 @@ export const searchLink = [
   {
     id: 6,
     title: '歌单',
-    link: '/search/songlist',
+    link: '/search/songswrap',
   },
   {
     id: 7,

@@ -1,12 +1,10 @@
 import styled from 'styled-components'
-export const SearchVideosWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+export const SongsWrapContent = styled.div`
   padding: 20px 0;
-  cursor: pointer;
-  .pagination_wrapper{
-      width: 100%;
-      text-align: right;
+  height: 100%;
+  .pagination_wrapper {
+    margin-top: 5px;
+    text-align: right;
   }
   .not_found {
     width: 100%;

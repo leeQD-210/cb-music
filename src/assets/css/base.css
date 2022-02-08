@@ -90,5 +90,7 @@ img {
 .playbar_sprite {
   background: url('~@/assets/img/playbar_sprite.png') no-repeat 0 999px;
 }
-
+.sprite_button2 {
+  background: url('~@/assets/img/sprite_button2.png') no-repeat 0 999px;
+}
 /* antd样式 */

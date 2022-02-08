@@ -12,11 +12,11 @@
  */
 
 // [00:31.160]如果场景里出现一架钢琴
-export const parseLyric = (lysic) => {
+export const parseLyric = (lyric) => {
   const parseReg = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/
-  let lysicSplit = lysic.split('\n')
-  let lysicArr = []
-  for (let line of lysicSplit) {
+  let lyricSplit = lyric.split('\n')
+  let lyricArr = []
+  for (let line of lyricSplit) {
     if (line) {
       const arr = parseReg.exec(line)
       if (!arr) continue
@@ -25,11 +25,11 @@ export const parseLyric = (lysic) => {
       const milSecond =
         arr[3].length === 3 ? arr[3]* 1 : arr[3] * 10
       const content = line.replace(parseReg, '').trim()
-      lysicArr.push({
+      lyricArr.push({
         time: minute + second + milSecond,
         content: content
       })
     }
   }
-  return lysicArr
+  return lyricArr
 }
