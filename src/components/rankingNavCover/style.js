@@ -1,6 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const NavCoverWrapper = styled.div`
   .item {
+    position: relative;
     width: 240px;
     height: 60px;
     padding: 10px 0 10px 20px;
@@ -37,4 +38,4 @@ export const NavCoverWrapper = styled.div`
   .current {
     background-color: #eee;
   }
-`
+`;
