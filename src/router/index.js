@@ -4,7 +4,8 @@ const CBDiscover = React.lazy((_) => import('@/pages/discover'))
 const CBRecommend = React.lazy((_) =>
   import('@/pages/discover/c-pages/recommend')
 )
-const CBRanking = React.lazy(_=>import('@/pages/discover/c-pages/ranking'))
+const CBRanking = React.lazy((_) => import('@/pages/discover/c-pages/ranking'))
+const CBCatlist = React.lazy((_) => import('@/pages/discover/c-pages/catlist'))
 const CBSearch = React.lazy((_) => import('@/pages/search'))
 const SearchSongs = React.lazy((_) => import('@/pages/search/c-page/songs'))
 const SearchArtists = React.lazy((_) => import('@/pages/search/c-page/artists'))
@@ -39,6 +40,10 @@ const routes = [
         path: '/discover/ranking',
         component: CBRanking
       },
+      {
+        path: '/discover/catlist',
+        component: CBCatlist
+      }
     ]
   },
   {

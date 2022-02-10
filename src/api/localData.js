@@ -83,7 +83,7 @@ export const discoverMenu = [
   },
   {
     title: '歌单',
-    link: '/discover/songs',
+    link: '/discover/catlist',
   },
   {
     title: '主播电台',
