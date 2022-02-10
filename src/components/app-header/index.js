@@ -1,27 +1,27 @@
-import React, { memo, useRef, useState } from 'react'
-import { Input, Button } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
-import { NavLink, useHistory } from 'react-router-dom'
-import { headerLinks } from '@/api/localData'
-import { HeaderWrapper, HeaderLeft, HeaderRight } from './style'
+import React, { memo, useRef, useState } from 'react';
+import { Input, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { NavLink, useHistory } from 'react-router-dom';
+import { headerLinks } from '@/api/localData';
+import { HeaderWrapper, HeaderLeft, HeaderRight } from './style';
 export default memo(function CBAppHeader() {
   const showItem = (item, index) => {
     if (index < 3) {
-      return <NavLink to={item.link}>{item.title}</NavLink>
+      return <NavLink to={item.link}>{item.title}</NavLink>;
     } else {
       return (
         <a href={item.link} target="_blank" rel="noopener noreferrer">
           {item.title}
         </a>
-      )
+      );
     }
-  }
-  const [keywords, setKeywords] = useState('')
-  const history = useHistory()
-  const inputRef = useRef()
+  };
+  const [keywords, setKeywords] = useState('');
+  const history = useHistory();
+  const inputRef = useRef();
   const handleSearch = (e) => {
-    history.push(`/search/songs?keywords=${keywords}`)
-  }
+    history.push(`/search/songs?keywords=${keywords}`);
+  };
   return (
     <HeaderWrapper>
       <div className="content">
@@ -33,7 +33,7 @@ export default memo(function CBAppHeader() {
                 <div className="nav_item" key={item.id}>
                   {showItem(item, index)}
                 </div>
-              )
+              );
             })}
           </div>
         </HeaderLeft>
@@ -44,7 +44,7 @@ export default memo(function CBAppHeader() {
             prefix={<SearchOutlined onClick={handleSearch} />}
             onPressEnter={handleSearch}
             onChange={(e) => {
-              setKeywords(e.target.value)
+              setKeywords(e.target.value);
             }}
             ref={inputRef}
             value={keywords}
@@ -55,5 +55,5 @@ export default memo(function CBAppHeader() {
       </div>
       <div className="divider"></div>
     </HeaderWrapper>
-  )
-})
+  );
+});

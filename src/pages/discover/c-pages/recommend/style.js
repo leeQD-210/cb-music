@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const RecommendWrapper = styled.div`
   width: 100%;
-`
+`;
 export const MainWrapper = styled.div`
   display: flex;
   width: 1000px;
@@ -16,21 +16,22 @@ export const MainWrapper = styled.div`
     width: 270px;
     border-right: 1px solid #d3d3d3;
     .loginbox {
-      display: flex;
+      /* display: flex;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      justify-content: center */
       margin-top: 10px;
       padding: 20px;
       width: 90%;
       margin-left: 10px;
-      height: 126px;
+      /* height: px; */
       background-color: #fddc6e;
       border-radius: 15px;
-      border:3px dashed #e26b0a;
-      .info {
-        font-size: 14px;
-        color: #000;
+      border: 3px dashed #e26b0a;
+      .logo {
+        width: 100%;
+        height: 180px;
+        /* border: 3px dashed #000; */
+        border-radius: 5px;
       }
       .btn {
         width: 100px;
@@ -46,4 +47,4 @@ export const MainWrapper = styled.div`
       }
     }
   }
-`
+`;

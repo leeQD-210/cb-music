@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -19,11 +19,12 @@ export const HeaderWrapper = styled.div`
     width: 100%;
     background-color: #fff;
   }
-`
+`;
 export const HeaderLeft = styled.div`
   display: flex;
   width: auto;
   align-items: center;
+
   .title {
     font-size: 25px;
     color: #fff;
@@ -49,7 +50,7 @@ export const HeaderLeft = styled.div`
       .active {
         position: relative;
         background-color: #e26b0a;
-        border-radius: 50%;
+        border-radius: 35px;
         &::after {
           display: block;
           content: '';
@@ -85,7 +86,7 @@ export const HeaderLeft = styled.div`
       }
     }
   }
-`
+`;
 export const HeaderRight = styled.div`
   color: #000;
   font-size: 12px;
@@ -110,4 +111,4 @@ export const HeaderRight = styled.div`
     font-size: 12px;
     margin: 0 15px;
   }
-`
+`;

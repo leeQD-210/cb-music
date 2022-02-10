@@ -6,6 +6,10 @@ export const CoverWrapper = styled.div`
   justify-content: center;
   width: 140px;
   margin-bottom: 30px;
+  margin-left: ${(props) => props.marginLeft};
+  &:nth-child(${(props) => props.rowNum}n + 1) {
+    margin-left: 0;
+  }
   .image {
     width: 140px;
     height: 140px;
@@ -34,8 +38,8 @@ export const CoverWrapper = styled.div`
       }
     }
     .icon_right {
-     display: flex;
-     align-items: center;
+      display: flex;
+      align-items: center;
       .play {
         display: inline-block;
         width: 17px;

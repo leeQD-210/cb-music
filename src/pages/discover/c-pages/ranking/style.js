@@ -6,6 +6,7 @@ export const CBRankingWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   height: auto;
+  overflow: hidden;
   .content_right {
     width: 760px;
     padding: 40px;
