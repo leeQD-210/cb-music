@@ -1,4 +1,9 @@
-export const CHANGE_DJ_CATEGORY = 'djRadio/changeDjCategory'
-export const CHANGE_DJ_RECOMMEND = 'djRadio/changeDjRecommend'
-export const CHANGE_DJ_PROGRAM = 'djRadio/changeDjProgram'
-export const CHANGE_DJ_RECOMMEND_PROGRAM = 'djRadio/changeDjRecommendProgram'
+export const CHANGE_DJ_CATEGORY = 'djRadio/changeDjCategory';
+export const CHANGE_DJ_RECOMMEND = 'djRadio/changeDjRecommend';
+export const CHANGE_DJ_PROGRAM = 'djRadio/changeDjProgram';
+export const CHANGE_DJ_RECOMMEND_PROGRAM = 'djRadio/changeDjRecommendProgram';
+export const CHANGE_MUSIC_RECOMMEND_DJ = 'djRadio/changeMusicRecommendDj';
+export const CHANGE_CREATE_RECOMMEND_DJ = 'djRadio/changeCreateRmdDj';
+export const CHANGE_EMOTION_RECOMMEND_DJ = 'djRadio/changeEmotionRmdDj';
+export const CHANGE_KNOWLEDGE_RECOMMEND_DJ = 'djRadio/changeKnowledgeRmdDj';
+export const CHANGE_TALKSHOW_RECOMMEND_DJ = 'djRadio/changeTalkShowRmdDj';

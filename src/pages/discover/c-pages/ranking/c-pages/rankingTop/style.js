@@ -49,18 +49,23 @@ export const RankingTopWrapper = styled.div`
     .action_box {
       display: flex;
       justify-content: space-evenly;
-			align-items: center;
+      align-items: center;
       width: 500px;
-			height: 35px;
+      height: 35px;
       margin-top: 8px;
       background-color: #fafafa;
+      .iconfont {
+        cursor: pointer;
+      }
       .count {
         font-size: 12px;
       }
-			.favor,.share,.comment{
-				display: flex;
-				align-items: center;
-			}
+      .favor,
+      .share,
+      .comment {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 `;

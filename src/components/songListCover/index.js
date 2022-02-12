@@ -3,6 +3,7 @@ import { CoverWrapper } from './style';
 import { handleCount } from '@/utils';
 export default memo(function SongListCover(props) {
   const { info, rowNum, marginLeft } = props;
+  console.log(info);
   return (
     <CoverWrapper rowNum={rowNum} marginLeft={marginLeft}>
       <img src={info.picUrl || info.coverImgUrl} alt="" className="image" />
@@ -17,7 +18,7 @@ export default memo(function SongListCover(props) {
       </div>
       <span className="name">{info.name}</span>
       <span className="writer">
-        by&nbsp;{info.copywriter || info.creator.nickname}
+        by&nbsp;{info.copywriter || (info.creator&&info.creator.nickname) || '芝士条'}
       </span>
     </CoverWrapper>
   );

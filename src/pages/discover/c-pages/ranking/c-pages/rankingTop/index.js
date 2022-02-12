@@ -2,10 +2,16 @@ import React, { memo } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { RankingTopWrapper } from './style';
 import { handleTimeStamp } from '@/utils';
+import { useDispatch } from 'react-redux';
+import { addSongByTracks } from '@/pages/player/store/actionCreator';
 export default memo(function RankingTop() {
   const state = useSelector((state) => {
     return { playListDetail: state.getIn(['ranking', 'playListDetail']) };
   }, shallowEqual);
+  const dispatch = useDispatch();
+  const addPlayList = (tracks) => {
+    dispatch(addSongByTracks(tracks));
+  };
   return (
     <RankingTopWrapper>
       <div className="img_box">
@@ -30,8 +36,13 @@ export default memo(function RankingTop() {
         </span>
         <div className="action_box">
           <i className="iconfont icon-playfill"></i>
-          <i className="iconfont icon-add"></i>
-          <span className='favor'>
+          <i
+            className="iconfont icon-add"
+            onClick={(e) => {
+              addPlayList(state.playListDetail.tracks);
+            }}
+          ></i>
+          <span className="favor">
             <i className="iconfont icon-favor"></i>
             <span className="count">
               ({state.playListDetail.subscribedCount})
@@ -42,9 +53,12 @@ export default memo(function RankingTop() {
             <span className="count">({state.playListDetail.shareCount})</span>
           </span>
           <i className="iconfont icon-download"></i>
-          <span className='comment'>
+          <span className="comment">
             <i className="iconfont icon-comment"></i>
-            <span className='count'> ({state.playListDetail.commentCount})</span>
+            <span className="count">
+              {' '}
+              ({state.playListDetail.commentCount})
+            </span>
           </span>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const RecommendShowWrapper = styled.div`
   width: 430px;
   margin: 20px 35px;
@@ -18,6 +18,7 @@ export const RecommendShowWrapper = styled.div`
     .item {
       display: flex;
       padding: 10px 15px;
+      height: 65px;
       &:nth-child(2n + 1) {
         background-color: #fafafa;
       }
@@ -27,19 +28,22 @@ export const RecommendShowWrapper = styled.div`
         .rank,
         .rankChange {
           width: 30px;
-          text-align: left;
+          text-align: center;
         }
         .rank {
-          padding-left: 5px;
+          padding-right: 5px;
         }
         .new {
           font-size: 12px;
           color: #4abbeb;
         }
         .ranktop {
+          font-size: 16px;
           color: #e26b0a;
+          font-weight: 500;
         }
         .rankChange {
+          padding-right: 8px;
           .iconfont {
             font-size: 12px;
           }
@@ -69,13 +73,13 @@ export const RecommendShowWrapper = styled.div`
           display: flex;
           flex-direction: column;
           .title {
-            width: 280px;
+            width: ${(props) => props.titleWidth};
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
           }
           .creator {
-            width: 280px;
+            width: ${(props) => props.titleWidth};
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -98,7 +102,13 @@ export const RecommendShowWrapper = styled.div`
           border-radius: 3px;
           cursor: pointer;
         }
+        .ant-progress {
+          width: 100px;
+          .ant-progress-bg {
+            background: #ccc;
+          }
+        }
       }
     }
   }
-`
+`;

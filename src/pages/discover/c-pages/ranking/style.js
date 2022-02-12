@@ -10,6 +10,5 @@ export const CBRankingWrapper = styled.div`
   .content_right {
     width: 760px;
     padding: 40px;
-    margin-left: 260px;
   }
 `;

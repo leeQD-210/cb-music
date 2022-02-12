@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const PlayPanelWrapper = styled.div`
   position: fixed;
   display: flex;
@@ -31,8 +31,9 @@ export const PlayPanelWrapper = styled.div`
         display: flex;
         align-items: center;
         margin-right: 20px;
-        .favor_all,.delete_all{
-            cursor: pointer;
+        .favor_all,
+        .delete_all {
+          cursor: pointer;
         }
         .iconfont {
           position: relative;
@@ -122,6 +123,13 @@ export const PlayPanelWrapper = styled.div`
         color: #000;
       }
     }
+    .empty_lyric {
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight:600;
+      margin-top:100px;
+    }
     .lyric_box {
       width: 100%;
       height: 270px;
@@ -140,7 +148,7 @@ export const PlayPanelWrapper = styled.div`
         text-align: center;
         line-height: 30px;
         padding: 0 10px;
-        overflow:hidden;
+        overflow: hidden;
         white-space: nowrap;
         cursor: pointer;
       }
@@ -149,10 +157,10 @@ export const PlayPanelWrapper = styled.div`
       }
     }
   }
-  .empty{
-      position: absolute;
-      top:50%;
-      left:50%;
-      transform: translateX(-50%);
+  .empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
   }
-`
+`;

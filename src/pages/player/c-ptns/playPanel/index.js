@@ -1,10 +1,10 @@
-import React, { memo, useRef, useEffect } from 'react'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { PlayPanelWrapper } from './style'
-import { handleDurationTime } from '@/utils'
-import { changeSongIndex, deleteSong } from '../../store/actionCreator'
-import classNames from 'classnames'
-import { message } from 'antd'
+import React, { memo, useRef, useEffect } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { PlayPanelWrapper } from './style';
+import { handleDurationTime } from '@/utils';
+import { changeSongIndex, deleteSong } from '../../store/actionCreator';
+import classNames from 'classnames';
+import { message } from 'antd';
 export default memo(function PlayPanel() {
   const state = useSelector((state) => {
     return {
@@ -12,42 +12,42 @@ export default memo(function PlayPanel() {
       currentSongIndex: state.getIn(['player', 'currentSongIndex']),
       currentSong: state.getIn(['player', 'currentSong']),
       currentLyric: state.getIn(['player', 'currentLyric']),
-      lyricIndex: state.getIn(['player', 'lyricIndex'])
-    }
-  }, shallowEqual)
-  const lyricRef = useRef()
+      lyricIndex: state.getIn(['player', 'lyricIndex']),
+    };
+  }, shallowEqual);
+  const lyricRef = useRef();
   useEffect(() => {
     if (state.lyricIndex <= 4) {
-      lyricRef.current.scrollTop = 0
+      lyricRef.current.scrollTop = 0;
     }
     if (state.lyricIndex > 4) {
       lyricRef.current.scrollTo({
         top: (state.lyricIndex - 4) * 30,
         left: 0,
-        behavior: 'smooth'
-      })
+        behavior: 'smooth',
+      });
     }
-  }, [state.lyricIndex, lyricRef])
-  const dispatch = useDispatch()
+  }, [state.lyricIndex, lyricRef]);
+  const dispatch = useDispatch();
   const clickSongItem = (index) => {
     //   console.log(111)
-    dispatch(changeSongIndex(index))
-  }
+    dispatch(changeSongIndex(index));
+  };
   const clickFavor = (e) => {
-    e.stopPropagation()
-    message.error('功能尚未开发，别瞎点')
-  }
+    e.stopPropagation();
+    message.error('功能尚未开发，别瞎点');
+  };
   const clickShare = (e) => {
-    e.stopPropagation()
-    message.error('功能尚未开发，别瞎点')
-  }
+    e.stopPropagation();
+    message.error('功能尚未开发，别瞎点');
+  };
   const clickDownload = (e) => {
-    e.stopPropagation()
-    message.error('功能尚未开发，别瞎点')
-  }
+    e.stopPropagation();
+    message.error('功能尚未开发，别瞎点');
+  };
   const handleDeleteSong = (index) => {
-    dispatch(deleteSong('single', index))
-  }
+    dispatch(deleteSong('single', index));
+  };
   return (
     <PlayPanelWrapper>
       <div className="playlist">
@@ -57,7 +57,7 @@ export default memo(function PlayPanel() {
             <span
               className="favor_all"
               onClick={(e) => {
-                message.error('功能尚未开发，别瞎点')
+                message.error('功能尚未开发，别瞎点');
               }}
             >
               <i className="iconfont icon-favor"></i>
@@ -66,7 +66,7 @@ export default memo(function PlayPanel() {
             <span
               className="delete_all"
               onClick={(e) => {
-                dispatch(deleteSong('all'))
+                dispatch(deleteSong('all'));
               }}
             >
               <i className="iconfont icon-delete"></i>
@@ -79,7 +79,7 @@ export default memo(function PlayPanel() {
             return (
               <div
                 className="song_item"
-                key={item.id}
+                key={item.id + item.name}
                 onClick={(e) => clickSongItem(index)}
               >
                 <span className="song_name">
@@ -98,8 +98,8 @@ export default memo(function PlayPanel() {
                   <i
                     className="iconfont icon-delete"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      handleDeleteSong(index)
+                      e.stopPropagation();
+                      handleDeleteSong(index);
                     }}
                   ></i>
                 </div>
@@ -110,7 +110,7 @@ export default memo(function PlayPanel() {
                   <span>{handleDurationTime(item.dt)}</span>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -122,23 +122,29 @@ export default memo(function PlayPanel() {
           <span>{state.currentSong.ar && state.currentSong.ar[0].name}</span>
         </div>
         <div className="lyric_box" ref={lyricRef}>
-          {state.currentLyric.map((item, index) => {
-            return (
-              <div
-                className={classNames('line', {
-                  current: state.lyricIndex === index
-                })}
-                key={index}
-              >
-                {item.content || '哦豁呐'}
-              </div>
-            )
-          })}
+          {state.currentLyric.length > 0 &&
+            state.currentLyric.map((item, index) => {
+              return (
+                <div
+                  className={classNames('line', {
+                    current: state.lyricIndex === index,
+                  })}
+                  key={index}
+                >
+                  {item.content || '哦豁呐'}
+                </div>
+              );
+            })}
+          {state.currentLyric.length === 0 && (
+            <div className="empty_lyric">
+              当前歌曲暂无歌词，请尝试其他歌曲！
+            </div>
+          )}
         </div>
       </div>
-      {!state.currentSong.id && (
+      {state.playList.length === 0 && (
         <div className="empty">播放列表空空如也~~，请前往添加歌曲！</div>
       )}
     </PlayPanelWrapper>
-  )
-})
+  );
+});
