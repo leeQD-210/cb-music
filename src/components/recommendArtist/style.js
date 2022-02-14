@@ -1,10 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const ReArtistWrapper = styled.div`
   .item {
     display: flex;
     width: 100%;
     background-color: #fafafa;
     margin-top: 20px;
+    cursor: pointer;
     .image {
       width: 62px;
       height: 62px;
@@ -25,4 +26,4 @@ export const ReArtistWrapper = styled.div`
       }
     }
   }
-`
+`;

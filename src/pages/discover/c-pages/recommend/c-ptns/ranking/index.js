@@ -18,7 +18,6 @@ export default memo(function Ranking() {
     dispatch(getList('new'))
     dispatch(getList('origin'))
   }, [dispatch])
-  console.log(state)
   return (
     <RankingWrapper>
       <RecommendNav title="榜单" moreLink="ranking"></RecommendNav>

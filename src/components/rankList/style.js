@@ -59,6 +59,7 @@ export const ListWrapper = styled.div`
     line-height: 32px;
     padding-left: 20px;
     flex-wrap: nowrap;
+    cursor: pointer;
     &:nth-child(odd) {
       background-color: #e8e8e8;
     }

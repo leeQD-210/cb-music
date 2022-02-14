@@ -1,47 +1,47 @@
-import { request } from '@/request'
+import { request } from '@/request';
 // 获取轮播图
 export const getTopBanner = () => {
   return request({
     method: 'get',
-    url: '/banner'
-  })
-}
+    url: '/banner',
+  });
+};
 // 获取热门歌单
 export const getHotRecommend = () => {
   return request({
     method: 'get',
     url: '/personalized',
-    params: { limit: 8 }
-  })
-}
+    params: { limit: 8 },
+  });
+};
 // 获取新上碟片
-export const getNewAlbums = (limit, offset) => {
+export const getAlbums = (limit, pageNo) => {
   return request({
     method: 'get',
     url: '/top/album',
     params: {
       limit,
-      offset
-    }
-  })
-}
+      offset: (pageNo - 1) * limit,
+    },
+  });
+};
 // 获取所有榜单
 export const getAllRank = () => {
   return request({
     method: 'get',
-    url: '/toplist'
-  })
-}
+    url: '/toplist',
+  });
+};
 // 获取榜单
 export const getTopList = (id) => {
   return request({
     method: 'get',
     url: '/playlist/detail',
     params: {
-      id
-    }
-  })
-}
+      id,
+    },
+  });
+};
 // 获取入驻歌手
 export const getTopArtistList = (limit, type) => {
   return request({
@@ -49,17 +49,17 @@ export const getTopArtistList = (limit, type) => {
     url: '/artist/list',
     params: {
       limit,
-      type
-    }
-  })
-}
+      type,
+    },
+  });
+};
 // 获取热门主播
 export const getHotDj = (limit) => {
   return request({
     method: 'get',
     url: '/dj/toplist/popular',
     params: {
-      limit
-    }
-  })
-}
+      limit,
+    },
+  });
+};

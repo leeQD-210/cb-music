@@ -1,4 +1,4 @@
-import { getSongDetail, getSongLyric } from '@/api/player';
+import { getSongDetail, getSongLyric, getPlayUrl } from '@/api/player';
 import { parseLyric } from '@/utils/parseLyric';
 import * as actionTypes from './constant';
 // 添加歌曲到播放列表
@@ -15,10 +15,18 @@ const changeCurrentSongIndex = (currentSongIndex) => ({
   type: actionTypes.CHANGE_CURRENT_INDEX,
   currentSongIndex,
 });
+const changeCurrentSongUrl = (songUrl) => ({
+  type: actionTypes.CHANGE_CURRENT_SONG_URL,
+  songUrl,
+});
 // 切换当前歌词
 const changeCurrentLyric = (lyric) => ({
   type: actionTypes.CHANGE_CURRENT_LYRIC,
   currentLyric: lyric,
+});
+export const changePlayStatus = (isPlay) => ({
+  type: actionTypes.CHANGE_PLAY_STATUS,
+  isPlay,
 });
 // 切换播放顺序
 export const changePlayAction = (action) => ({
@@ -45,7 +53,7 @@ export const addSong = (id) => {
 export const addSongByTracks = (tracks) => {
   return (dispatch, getState) => {
     const playList = getState().getIn(['player', 'playList']);
-    // console.log(new Set([...playList, ...tracks]))
+    // (new Set([...playList, ...tracks]))
     const newTracks = [];
     tracks.forEach((item) => {
       if (!playList.some((sItem) => sItem.id === item.id)) {
@@ -72,6 +80,7 @@ export const changeSong = (id) => {
     }
   };
 };
+
 // 切换当前歌曲索引
 export const changeSongIndex = (index) => {
   return (dispatch, getState) => {
@@ -99,7 +108,6 @@ export const deleteSong = (type, index) => {
     const playList = getState().getIn(['player', 'playList']);
     switch (type) {
       case 'single':
-        console.log(111);
         playList.splice(index);
         dispatch(changePlayList(playList));
         if (playList[index - 1]) {
@@ -115,5 +123,12 @@ export const deleteSong = (type, index) => {
       default:
         return '其他操作';
     }
+  };
+};
+export const getSongUrl = (id) => {
+  return (dispatch) => {
+    getPlayUrl(id).then((res) => {
+      dispatch(changeCurrentSongUrl(res.data[0].url));
+    });
   };
 };

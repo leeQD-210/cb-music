@@ -95,7 +95,7 @@ export const discoverMenu = [
   },
   {
     title: '新碟上架',
-    link: '/discover/album',
+    link: '/discover/albums',
   },
 ];
 export const searchLink = [
@@ -280,5 +280,28 @@ export const artistCategories = [
         id: 16,
       },
     ],
+  },
+];
+// 区域类别
+export const areaCategories = [
+  {
+    name: '全部',
+    area: 'ALL',
+  },
+  {
+    name: '华语',
+    area: 'ZH',
+  },
+  {
+    name: '欧美',
+    area: 'EA',
+  },
+  {
+    name: '韩国',
+    area: 'KR',
+  },
+  {
+    name: '日本',
+    area: 'JP',
   },
 ];

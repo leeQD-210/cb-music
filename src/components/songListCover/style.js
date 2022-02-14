@@ -7,6 +7,7 @@ export const CoverWrapper = styled.div`
   width: 140px;
   margin-bottom: 30px;
   margin-left: ${(props) => props.marginLeft};
+  cursor: pointer;
   &:nth-child(${(props) => props.rowNum}n + 1) {
     margin-left: 0;
   }

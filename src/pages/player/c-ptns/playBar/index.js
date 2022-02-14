@@ -11,6 +11,8 @@ import {
   changeSongIndex,
   changePlayAction,
   changeLyricIndex,
+  changePlayStatus,
+  getSongUrl,
 } from '../../store/actionCreator';
 import classnames from 'classnames';
 import {
@@ -19,9 +21,8 @@ import {
   PauseOutlined,
   StepForwardOutlined,
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 export default memo(function CBPlayer() {
-  // 控制播放状态
-  const [isPlay, setIsPlay] = useState(false);
   //   当前播放时间
   const [currentTime, setCurrenTime] = useState('00:00');
   //   进度条
@@ -43,46 +44,54 @@ export default memo(function CBPlayer() {
       currentSongIndex: state.getIn(['player', 'currentSongIndex']),
       playAction: state.getIn(['player', 'playAction']),
       lyricIndex: state.getIn(['player', 'lyricIndex']),
+      isPlay: state.getIn(['player', 'isPlay']),
+      songUrl: state.getIn(['player', 'songUrl']),
     };
   }, shallowEqual);
   const radioRef = useRef();
   const [volume, setVolume] = useState(0);
   const initPlay = useRef(false);
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     if (!state.currentSong.id) return;
     setDuration(state.currentSong.dt);
-    radioRef.current.src = getPlayUrl(state.currentSong.id || '');
+    // dispatch(getSongUrl(state.currentSong.id));
     dispatch(getLyric(state.currentSong.id));
-    if (initPlay.current) {
-      radioRef.current
-        .play()
-        .then(() => {
-          setIsPlay(true);
-        })
-        .catch((err) => {
-          setIsPlay(false);
-          message.error('播放失败，请尝试其他歌曲！');
-        });
-    } else {
-      initPlay.current = true;
-    }
+    getPlayUrl(state.currentSong.id).then((res) => {
+      radioRef.current.src = res.data[0].url;
+      if (initPlay.current) {
+        radioRef.current
+          .play()
+          .then(() => {
+            dispatch(changePlayStatus(true));
+          })
+          .catch((err) => {
+            dispatch(changePlayStatus(false));
+            message.error('该歌曲无版权，请播放其他歌曲');
+          });
+      } else {
+        initPlay.current = true;
+      }
+    });
   }, [state.currentSong, dispatch]);
+  useEffect(() => {
+    // 播放状态，执行暂停
+    if (state.isPlay) {
+      radioRef.current.play().catch((err) => {
+        dispatch(changePlayStatus(false));
+        message.error('该歌曲无版权，请播放其他歌曲');
+      });
+    } else {
+      radioRef.current.pause();
+    }
+  }, [state.isPlay, dispatch]);
   //  播放歌曲
   const changePlay = () => {
     if (!state.currentSong.id) {
       return message.info('请添加歌曲！');
     }
-    setIsPlay(!isPlay);
-    // 播放状态，执行暂停
-    if (isPlay) {
-      radioRef.current.pause();
-    } else {
-      radioRef.current.play().catch((err) => {
-        setIsPlay(false);
-        message.error('播放失败，请尝试其他歌曲！');
-      });
-    }
+    dispatch(changePlayStatus(!state.isPlay));
   };
   //   切换歌曲
   const changeSong = (type) => {
@@ -172,12 +181,12 @@ export default memo(function CBPlayer() {
       setCurrenTime(handleDurationTime(currentTime * 1000));
       setProgress(val);
       setSliderChanging(false);
-      if (!isPlay) {
-        setIsPlay(true);
+      if (!state.isPlay) {
+        dispatch(changePlayStatus(true));
         radioRef.current.play();
       }
     },
-    [duration, isPlay]
+    [duration, state.isPlay, dispatch]
   );
   const handlePlayAction = () => {
     if (state.playAction === 2) {
@@ -188,6 +197,9 @@ export default memo(function CBPlayer() {
   const handleVolumeChange = (val) => {
     setVolume(val / 100);
     radioRef.current.volume = val / 100;
+  };
+  const handleCoverClick = () => {
+    history.push('/discover/songDetail');
   };
   return (
     <CBPlayerWrapper className="playbar_sprite">
@@ -200,7 +212,7 @@ export default memo(function CBPlayer() {
             className="btn"
             onClick={(e) => changeSong('prev')}
           />
-          {isPlay ? (
+          {state.isPlay ? (
             <PauseOutlined
               className="btn paused"
               onClick={(e) => changePlay()}
@@ -223,8 +235,11 @@ export default memo(function CBPlayer() {
                 ? state.currentSong.al.picUrl
                 : require('@/assets/img/download0.png')
             }
+            onClick={(e) => {
+              handleCoverClick();
+            }}
             alt=""
-            className={classnames('image', { isPlay: isPlay })}
+            className={classnames('image', { isPlay: state.isPlay })}
           />
           <div className="playInfo">
             <div className="info">
@@ -270,8 +285,7 @@ export default memo(function CBPlayer() {
                 setShowVolumeSlider(!showVolumeSlider);
                 setVolume(radioRef.current.volume);
               }}
-            >
-            </i>
+            ></i>
             <i
               className={classnames(
                 'iconfont',
@@ -288,13 +302,13 @@ export default memo(function CBPlayer() {
             ></i>
             <span className="playlist_length">{state.playList.length}</span>
             {showVolumeSlider && (
-                <Slider
-                  value={volume * 100}
-                  vertical
-                  className="volume_slider"
-                  onChange={handleVolumeChange}
-                ></Slider>
-              )}
+              <Slider
+                value={volume * 100}
+                vertical
+                className="volume_slider"
+                onChange={handleVolumeChange}
+              ></Slider>
+            )}
             <div className="lyric">
               {(state.currentLyric[state.lyricIndex] &&
                 state.currentLyric[state.lyricIndex].content) ||
@@ -306,6 +320,7 @@ export default memo(function CBPlayer() {
             onTimeUpdate={(e) => {
               timeUpdate(e);
             }}
+            src={state.songUrl}
             onEnded={handleTimeEnded}
           ></audio>
           {showPanel && <PlayPanel></PlayPanel>}

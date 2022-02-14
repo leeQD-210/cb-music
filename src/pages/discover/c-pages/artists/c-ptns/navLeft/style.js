@@ -17,6 +17,7 @@ export const ArtistNavLeftWrapper = styled.div`
       display: flex;
       align-items: center;
       padding-left: 10px;
+      cursor: pointer;
       &:hover {
         border: 1px solid #ccc;
         color: #e26b0a;

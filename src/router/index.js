@@ -8,6 +8,7 @@ const CBRanking = React.lazy((_) => import('@/pages/discover/c-pages/ranking'));
 const CBCatlist = React.lazy((_) => import('@/pages/discover/c-pages/catlist'));
 const CBDjRadio = React.lazy((_) => import('@/pages/discover/c-pages/djRadio'));
 const CBArtists = React.lazy((_) => import('@/pages/discover/c-pages/artists'));
+const CBAlbums = React.lazy((_) => import('@/pages/discover/c-pages/albums'));
 const CBSearch = React.lazy((_) => import('@/pages/search'));
 const SearchSongs = React.lazy((_) => import('@/pages/search/c-page/songs'));
 const SearchArtists = React.lazy((_) =>
@@ -21,6 +22,7 @@ const SearchSongsWrap = React.lazy((_) =>
 );
 const SearchDj = React.lazy((_) => import('@/pages/search/c-page/dj'));
 const SearchUser = React.lazy((_) => import('@/pages/search/c-page/users'));
+const CBSongDetail = React.lazy((_) => import('@/pages/discover/c-pages/songDetail'));
 const routes = [
   {
     path: '/',
@@ -55,6 +57,14 @@ const routes = [
       {
         path: '/discover/artist',
         component: CBArtists,
+      },
+      {
+        path: '/discover/albums',
+        component: CBAlbums,
+      },
+      {
+        path: '/discover/songDetail',
+        component: CBSongDetail,
       },
     ],
   },
@@ -104,5 +114,6 @@ const routes = [
       },
     ],
   },
+  
 ];
 export default routes;

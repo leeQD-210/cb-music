@@ -17,6 +17,22 @@ export const ArtistListWrapper = styled.div`
       font-size: 12px;
     }
   }
+  .category {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top:10px;
+    align-items: center;
+    .alpha {
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .current {
+      padding: 5px 10px;
+      background-color: #e26b0a;
+      border-radius: 5px;
+    }
+  }
   .content {
     display: flex;
     flex-wrap: wrap;

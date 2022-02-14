@@ -1,5 +1,5 @@
-import * as actionTypes from './constant'
-import { Map } from 'immutable'
+import * as actionTypes from './constant';
+import { Map } from 'immutable';
 const defaultState = Map({
   playList: [
     {
@@ -12,8 +12,8 @@ const defaultState = Map({
           id: 5771,
           name: '许嵩',
           tns: [],
-          alias: []
-        }
+          alias: [],
+        },
       ],
       alia: [],
       pop: 100,
@@ -29,26 +29,26 @@ const defaultState = Map({
         picUrl:
           'https://p1.music.126.net/Wcs2dbukFx3TUWkRuxVCpw==/3431575794705764.jpg',
         tns: [],
-        pic: 3431575794705764
+        pic: 3431575794705764,
       },
       dt: 249621,
       h: {
         br: 320000,
         fid: 0,
         size: 9987177,
-        vd: -22200
+        vd: -22200,
       },
       m: {
         br: 192000,
         fid: 0,
         size: 5992323,
-        vd: -19600
+        vd: -19600,
       },
       l: {
         br: 128000,
         fid: 0,
         size: 3994896,
-        vd: -17800
+        vd: -17800,
       },
       a: null,
       cd: '1',
@@ -68,8 +68,8 @@ const defaultState = Map({
       rurl: null,
       mst: 9,
       cp: 14026,
-      publishTime: 1461723397683
-    }
+      publishTime: 1461723397683,
+    },
   ],
   currentSong: {
     name: '雅俗共赏',
@@ -81,8 +81,8 @@ const defaultState = Map({
         id: 5771,
         name: '许嵩',
         tns: [],
-        alias: []
-      }
+        alias: [],
+      },
     ],
     alia: [],
     pop: 100,
@@ -98,26 +98,26 @@ const defaultState = Map({
       picUrl:
         'https://p1.music.126.net/Wcs2dbukFx3TUWkRuxVCpw==/3431575794705764.jpg',
       tns: [],
-      pic: 3431575794705764
+      pic: 3431575794705764,
     },
     dt: 249621,
     h: {
       br: 320000,
       fid: 0,
       size: 9987177,
-      vd: -22200
+      vd: -22200,
     },
     m: {
       br: 192000,
       fid: 0,
       size: 5992323,
-      vd: -19600
+      vd: -19600,
     },
     l: {
       br: 128000,
       fid: 0,
       size: 3994896,
-      vd: -17800
+      vd: -17800,
     },
     a: null,
     cd: '1',
@@ -137,30 +137,36 @@ const defaultState = Map({
     rurl: null,
     mst: 9,
     cp: 14026,
-    publishTime: 1461723397683
+    publishTime: 1461723397683,
   },
   currentSongIndex: 0,
   currentLyric: [],
   // 0 顺序播放 1单曲循环 2 随机播放
   playAction: 0,
-  lyricIndex: 0
-})
+  lyricIndex: 0,
+  isPlay: false,
+  songUrl: '',
+});
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.CHANGE_PLAY_LIST:
-      return state.set('playList', action.playList)
+      return state.set('playList', action.playList);
     case actionTypes.CHANGE_CURRENT_SONG:
-      return state.set('currentSong',action.currentSong)
+      return state.set('currentSong', action.currentSong);
     case actionTypes.CHANGE_CURRENT_INDEX:
-      return state.set('currentSongIndex', action.currentSongIndex)
+      return state.set('currentSongIndex', action.currentSongIndex);
     case actionTypes.CHANGE_CURRENT_LYRIC:
-      return state.set('currentLyric', action.currentLyric)
+      return state.set('currentLyric', action.currentLyric);
     case actionTypes.CHANGE_PLAY_ACTION:
-      return state.set('playAction', action.playAction)
+      return state.set('playAction', action.playAction);
     case actionTypes.CHANGE_LYRIC_INDEX:
-      return state.set('lyricIndex', action.lyricIndex)
+      return state.set('lyricIndex', action.lyricIndex);
+    case actionTypes.CHANGE_PLAY_STATUS:
+      return state.set('isPlay', action.isPlay);
+    case actionTypes.CHANGE_CURRENT_SONG_URL:
+      return state.set('songUrl', action.songUrl);
     default:
-      return state
+      return state;
   }
-}
-export default reducer
+};
+export default reducer;

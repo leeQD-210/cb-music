@@ -20,6 +20,7 @@ export const NavWrapper = styled.div`
       font-size: 12px;
       color: #333;
       margin: 0 20px;
+      cursor: pointer;
       &:not(:last-child)::after {
         position: absolute;
         display: inline-block;

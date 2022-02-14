@@ -28,6 +28,7 @@ ins {
   box-sizing: border-box;
 }
 body {
+  height: auto;
   background-color: #f5f5f5;
 }
 ul,

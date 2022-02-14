@@ -5,9 +5,12 @@ import { NavLink } from 'react-router-dom';
 import ArtistCover from '@/components/artistCover';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getList } from '../../store/actionCreator';
+import { getList, changeCurrentInitial } from '../../store/actionCreator';
+import classnames from 'classnames';
+import { generateAlphaList } from '@/utils';
 export default memo(function ArtistList() {
   const dispatch = useDispatch();
+  const alphaList = generateAlphaList() || [];
   const state = useSelector((state) => {
     return {
       artistList: state.getIn(['artist', 'artistList']),
@@ -28,18 +31,48 @@ export default memo(function ArtistList() {
       )
     );
   }, [dispatch, state.currentType, state.currentArea, state.currentInitial, state.currentPath]);
+  const handleAlphaClick = (value) => {
+    dispatch(changeCurrentInitial(value));
+  };
   return (
     <ArtistListWrapper>
       <div className="recommend_artist">
         <div className="top">
           <span className="title">{state.currentTitle}</span>
         </div>
+        {state.currentType !== -1 && (
+          <div className="category">
+            {alphaList.length > 0 &&
+              alphaList.map((item) => {
+                return (
+                  <span
+                    key={item.value}
+                    className={classnames('alpha', {
+                      current: state.currentInitial === item.value,
+                    })}
+                    onClick={(e) => {
+                      handleAlphaClick(item.value);
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                );
+              })}
+          </div>
+        )}
         <div className="content">
           {state.artistList.length > 0 &&
+            state.currentTitle !== '入驻歌手' &&
             state.artistList.slice(0, 10).map((item, index) => {
               return <ArtistCover key={item.id} info={item}></ArtistCover>;
             })}
           {state.artistList.length > 0 &&
+            state.currentTitle === '入驻歌手' &&
+            state.artistList.map((item) => {
+              return <ArtistCover key={item.id} info={item}></ArtistCover>;
+            })}
+          {state.artistList.length > 0 &&
+            state.currentTitle !== '入驻歌手' &&
             state.artistList.slice(10, 100).map((item) => {
               return (
                 <div className="name_wrap" key={item.id}>

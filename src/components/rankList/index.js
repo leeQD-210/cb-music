@@ -66,9 +66,4 @@ RankList.defaultProps = {
   info: {},
   stripe: true
 }
-RankList.PropTypes = {
-  title: PropTypes.string.isRequired,
-  info: PropTypes.object,
-  stripe: PropTypes.bool
-}
 export default RankList

@@ -6,6 +6,7 @@ import rankingReducer from '@/pages/discover/c-pages/ranking/store/reducer';
 import catListReducer from '@/pages/discover/c-pages/catlist/store/reducer';
 import djRadioReducer from '@/pages/discover/c-pages/djRadio/store/reducer';
 import artistReducer from '@/pages/discover/c-pages/artists/store/reducer';
+import commentReducer from '@/pages/discover/c-pages/store/reducer';
 export default combineReducers({
   recommend: recommendReducer,
   player: playerReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   catlist: catListReducer,
   djRadio: djRadioReducer,
   artist: artistReducer,
+  comment: commentReducer,
 });

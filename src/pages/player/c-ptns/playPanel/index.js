@@ -3,7 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { PlayPanelWrapper } from './style';
 import { handleDurationTime } from '@/utils';
 import { changeSongIndex, deleteSong } from '../../store/actionCreator';
-import classNames from 'classnames';
+import LyricPlay from '@/components/lyricPlay';
 import { message } from 'antd';
 export default memo(function PlayPanel() {
   const state = useSelector((state) => {
@@ -15,19 +15,6 @@ export default memo(function PlayPanel() {
       lyricIndex: state.getIn(['player', 'lyricIndex']),
     };
   }, shallowEqual);
-  const lyricRef = useRef();
-  useEffect(() => {
-    if (state.lyricIndex <= 4) {
-      lyricRef.current.scrollTop = 0;
-    }
-    if (state.lyricIndex > 4) {
-      lyricRef.current.scrollTo({
-        top: (state.lyricIndex - 4) * 30,
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
-  }, [state.lyricIndex, lyricRef]);
   const dispatch = useDispatch();
   const clickSongItem = (index) => {
     //   console.log(111)
@@ -121,26 +108,7 @@ export default memo(function PlayPanel() {
           </span>
           <span>{state.currentSong.ar && state.currentSong.ar[0].name}</span>
         </div>
-        <div className="lyric_box" ref={lyricRef}>
-          {state.currentLyric.length > 0 &&
-            state.currentLyric.map((item, index) => {
-              return (
-                <div
-                  className={classNames('line', {
-                    current: state.lyricIndex === index,
-                  })}
-                  key={index}
-                >
-                  {item.content || '哦豁呐'}
-                </div>
-              );
-            })}
-          {state.currentLyric.length === 0 && (
-            <div className="empty_lyric">
-              当前歌曲暂无歌词，请尝试其他歌曲！
-            </div>
-          )}
-        </div>
+        <LyricPlay></LyricPlay>
       </div>
       {state.playList.length === 0 && (
         <div className="empty">播放列表空空如也~~，请前往添加歌曲！</div>
