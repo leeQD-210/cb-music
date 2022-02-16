@@ -30,7 +30,7 @@ export default memo(function Comment() {
       </div>
       <div className="comment_commit">
         <img
-          src={require('@/assets/img/ohuo1.png')}
+          src={require('@/assets/img/download1.png')}
           alt=""
           className="user_avatar"
         />

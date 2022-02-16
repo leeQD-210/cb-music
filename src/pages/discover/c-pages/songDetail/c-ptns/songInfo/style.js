@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const SongInfoWrapper = styled.div`
   display: flex;
   padding-top: 20px;
   .cover_wrap {
     position: relative;
     height: 470px;
-    padding-top: 50px;
+    padding-top: 48px;
     /* padding-top:100px; */
     padding-right: 30px;
-    padding-left: 70px;
+    padding-left: 73px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,9 +17,22 @@ export const SongInfoWrapper = styled.div`
       height: 130px;
       border-radius: 50%;
     }
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .isPlay {
+      position: relative;
+      transform-origin: center;
+      animation: rotate 5s linear infinite;
+    }
     .ohuo {
       width: 200px;
-      height: 200px;
+      height: 220px;
       margin-top: 50px;
     }
     .mask {
@@ -102,4 +115,4 @@ export const SongInfoWrapper = styled.div`
       box-shadow: 0 0 5px #999;
     }
   }
-`;
+`

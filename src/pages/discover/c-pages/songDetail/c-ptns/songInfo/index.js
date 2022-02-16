@@ -1,33 +1,55 @@
-import React, { memo } from 'react';
-import { SongInfoWrapper } from './style';
-import LyricPlay from '@/components/lyricPlay';
-import { useSelector } from 'react-redux';
-import { shallowEqual } from 'react-redux';
-import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
-import { changePlayStatus } from '@/pages/player/store/actionCreator';
-import { useDispatch } from 'react-redux';
+import React, { memo } from 'react'
+import { SongInfoWrapper } from './style'
+import LyricPlay from '@/components/lyricPlay'
+import { useSelector } from 'react-redux'
+import { shallowEqual } from 'react-redux'
+import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons'
+import { changePlayStatus } from '@/pages/player/store/actionCreator'
+import classNames from 'classnames'
+import { useDispatch } from 'react-redux'
+import { message } from 'antd'
 export default memo(function SongInfo() {
   const state = useSelector((state) => {
     return {
       currentSong: state.getIn(['player', 'currentSong']),
       songCommentsTotal: state.getIn(['comment', 'songCommentsTotal']),
-      isPlay: state.getIn(['player', 'isPlay']),
-    };
-  }, shallowEqual);
-  const dispatch = useDispatch();
+      isPlay: state.getIn(['player', 'isPlay'])
+    }
+  }, shallowEqual)
+  const dispatch = useDispatch()
   const changePlay = () => {
-    dispatch(changePlayStatus(!state.isPlay));
-  };
+    dispatch(changePlayStatus(!state.isPlay))
+    if (state.isPlay) {
+      document.getElementById('audio').pause()
+    } else {
+      document
+        .getElementById('audio')
+        .play()
+        .catch((err) => {
+          message.error('该歌曲暂无版权，请尝试其他歌曲')
+        })
+    }
+  }
   return (
     <SongInfoWrapper>
       <div className="cover_wrap">
         <img
-          src={require('@/assets/img/download0.png')}
+          src={
+            state.currentSong.al
+              ? state.currentSong.al.picUrl
+              : require('@/assets/img/download0.png')
+          }
           alt=""
-          className="img"
+          className={classNames('img', {
+            isPlay: state.isPlay
+          })}
         />
         <div className="mask sprite_cover"></div>
-        <img src={require('@/assets/img/ohuo1.png')} alt="" className="ohuo" />
+        <img
+          src={require('@/assets/img/download8.png')}
+          alt=""
+          className="ohuo"
+        />
       </div>
       <div className="song_wrap">
         <div className="song_info">
@@ -80,5 +102,5 @@ export default memo(function SongInfo() {
         </div>
       </div>
     </SongInfoWrapper>
-  );
-});
+  )
+})

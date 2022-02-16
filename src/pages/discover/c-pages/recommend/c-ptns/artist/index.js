@@ -32,7 +32,6 @@ export default memo(function Artist() {
             ></RecommendArtist>
           )
         })}
-        <button className="btn">申请成为网易音乐人</button>
       </ContentWrapper>
     </ArtistWrapper>
   )

@@ -1,40 +1,39 @@
-import React, { useState, memo, useEffect, useRef, useCallback } from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { CBPlayerWrapper } from './style';
-import { message } from 'antd';
-import { Slider } from 'antd';
-import { handleDurationTime } from '@/utils';
-import { getPlayUrl } from '@/api/player';
-import PlayPanel from '../playPanel';
+import React, { useState, memo, useEffect, useRef, useCallback } from 'react'
+import { shallowEqual, useSelector, useDispatch } from 'react-redux'
+import { CBPlayerWrapper } from './style'
+import { message } from 'antd'
+import { Slider } from 'antd'
+import { handleDurationTime } from '@/utils'
+import { getPlayUrl } from '@/api/player'
+import PlayPanel from '../playPanel'
 import {
   getLyric,
   changeSongIndex,
   changePlayAction,
   changeLyricIndex,
-  changePlayStatus,
-  getSongUrl,
-} from '../../store/actionCreator';
-import classnames from 'classnames';
+  changePlayStatus
+} from '../../store/actionCreator'
+import classnames from 'classnames'
 import {
   StepBackwardOutlined,
   CaretRightOutlined,
   PauseOutlined,
-  StepForwardOutlined,
-} from '@ant-design/icons';
-import { useHistory } from 'react-router-dom';
+  StepForwardOutlined
+} from '@ant-design/icons'
+import { useHistory } from 'react-router-dom'
 export default memo(function CBPlayer() {
   //   当前播放时间
-  const [currentTime, setCurrenTime] = useState('00:00');
+  const [currentTime, setCurrenTime] = useState('00:00')
   //   进度条
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0)
   //   进度条拖动
-  const [isSliderChanging, setSliderChanging] = useState(false);
+  const [isSliderChanging, setSliderChanging] = useState(false)
   // 歌曲时长
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(0)
   // 显示播放面板
-  const [showPanel, setShowPanel] = useState(false);
+  const [showPanel, setShowPanel] = useState(false)
   // 显示音量滑动条
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false)
   //   获取当前歌曲
   const state = useSelector((state) => {
     return {
@@ -45,162 +44,158 @@ export default memo(function CBPlayer() {
       playAction: state.getIn(['player', 'playAction']),
       lyricIndex: state.getIn(['player', 'lyricIndex']),
       isPlay: state.getIn(['player', 'isPlay']),
-      songUrl: state.getIn(['player', 'songUrl']),
-    };
-  }, shallowEqual);
-  const radioRef = useRef();
-  const [volume, setVolume] = useState(0);
-  const initPlay = useRef(false);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  useEffect(() => {
-    if (!state.currentSong.id) return;
-    setDuration(state.currentSong.dt);
-    // dispatch(getSongUrl(state.currentSong.id));
-    dispatch(getLyric(state.currentSong.id));
-    getPlayUrl(state.currentSong.id).then((res) => {
-      radioRef.current.src = res.data[0].url;
-      if (initPlay.current) {
-        radioRef.current
-          .play()
-          .then(() => {
-            dispatch(changePlayStatus(true));
-          })
-          .catch((err) => {
-            dispatch(changePlayStatus(false));
-            message.error('该歌曲无版权，请播放其他歌曲');
-          });
-      } else {
-        initPlay.current = true;
-      }
-    });
-  }, [state.currentSong, dispatch]);
-  useEffect(() => {
-    // 播放状态，执行暂停
-    if (state.isPlay) {
-      radioRef.current.play().catch((err) => {
-        dispatch(changePlayStatus(false));
-        message.error('该歌曲无版权，请播放其他歌曲');
-      });
-    } else {
-      radioRef.current.pause();
+      songUrl: state.getIn(['player', 'songUrl'])
     }
-  }, [state.isPlay, dispatch]);
+  }, shallowEqual)
+  const radioRef = useRef()
+  const [volume, setVolume] = useState(0)
+  const dispatch = useDispatch()
+  const initFirst = useRef(false)
+  const history = useHistory()
+  useEffect(() => {
+    if (!state.currentSong.id) return
+    setDuration(state.currentSong.dt)
+    dispatch(getLyric(state.currentSong.id))
+    radioRef.current.src = getPlayUrl(state.currentSong.id)
+    if (initFirst.current) {
+      console.log('切换歌曲播放')
+      radioRef.current
+        .play()
+        .then(() => {
+          dispatch(changePlayStatus(true))
+        })
+        .catch((err) => {
+          dispatch(changePlayStatus(false))
+          message.error('该歌曲无版权，请播放其他歌曲')
+        })
+    } else {
+      initFirst.current = true
+    }
+  }, [state.currentSong, dispatch])
   //  播放歌曲
   const changePlay = () => {
     if (!state.currentSong.id) {
-      return message.info('请添加歌曲！');
+      return message.info('请添加歌曲！')
     }
-    dispatch(changePlayStatus(!state.isPlay));
-  };
+    dispatch(changePlayStatus(!state.isPlay))
+    // 播放状态，执行暂停
+    if (!state.isPlay) {
+      radioRef.current.play().catch((err) => {
+        dispatch(changePlayStatus(false))
+        message.error('该歌曲无版权，请播放其他歌曲')
+      })
+    } else {
+      radioRef.current.pause()
+    }
+  }
   //   切换歌曲
   const changeSong = (type) => {
-    const currentIndex = state.currentSongIndex;
+    const currentIndex = state.currentSongIndex
     switch (type) {
       case 'prev':
         if (currentIndex > 0) {
-          dispatch(changeSongIndex(currentIndex - 1));
+          dispatch(changeSongIndex(currentIndex - 1))
         } else {
-          message.error('当前歌曲已是第一首！');
+          dispatch(changeSongIndex(state.playList.length - 1))
         }
-        break;
+        break
       case 'next':
         if (currentIndex < state.playList.length - 1) {
-          dispatch(changeSongIndex(currentIndex + 1));
+          dispatch(changeSongIndex(currentIndex + 1))
         } else {
-          message.error('当前歌曲已是最后一首！');
+          dispatch(changeSongIndex(0))
         }
-        break;
+        break
       default:
-        return '其他操作';
+        return '其他操作'
     }
-  };
+  }
   //   播放歌曲时间变化
   const timeUpdate = (e) => {
-    const currentTime = e.target.currentTime * 1000;
+    const currentTime = e.target.currentTime * 1000
     if (!isSliderChanging) {
-      setCurrenTime(handleDurationTime(currentTime));
-      const percent = parseInt((currentTime / state.currentSong.dt) * 100);
-      setProgress(percent);
+      setCurrenTime(handleDurationTime(currentTime))
+      const percent = parseInt((currentTime / state.currentSong.dt) * 100)
+      setProgress(percent)
     }
-    let i = 0;
+    let i = 0
     while (i < state.currentLyric.length) {
       if (currentTime < state.currentLyric[i].time) {
-        break;
+        break
       }
-      i++;
+      i++
     }
-    const currentLyricIndex = i > 0 ? i - 1 : 0;
+    const currentLyricIndex = i > 0 ? i - 1 : 0
     if (currentLyricIndex !== state.lyricIndex) {
-      dispatch(changeLyricIndex(currentLyricIndex));
+      dispatch(changeLyricIndex(currentLyricIndex))
     }
-  };
+  }
   // 播放结束
   const handleTimeEnded = () => {
     switch (state.playAction) {
       case 0:
         if (state.playList[state.currentSongIndex + 1]) {
-          dispatch(changeSongIndex(state.currentSongIndex + 1));
+          dispatch(changeSongIndex(state.currentSongIndex + 1))
         } else {
           state.currentSongIndex === 0
             ? radioRef.current.play()
-            : dispatch(changeSongIndex(0));
+            : dispatch(changeSongIndex(0))
         }
-        break;
+        break
       case 1:
         radioRef.current.play().catch((err) => {
-          message.error('播放失败，请尝试其他歌曲');
-        });
-        break;
+          message.error('播放失败，请尝试其他歌曲')
+        })
+        break
       case 2:
-        const endIndex = state.playList.length - 1;
-        const randomIndex = Math.round(Math.random() * endIndex);
-        dispatch(changeSongIndex(randomIndex));
-        break;
+        const endIndex = state.playList.length - 1
+        const randomIndex = Math.round(Math.random() * endIndex)
+        dispatch(changeSongIndex(randomIndex))
+        break
       default:
-        return '其他操作';
+        return '其他操作'
     }
-  };
+  }
   //  进度条变化
   const handleSliderChange = useCallback(
     (val) => {
-      const percent = val / 100;
-      const currentTime = (duration * percent) / 1000;
-      radioRef.current.currentTime = currentTime;
-      setCurrenTime(handleDurationTime(currentTime * 1000));
-      setProgress(val);
-      setSliderChanging(true);
+      const percent = val / 100
+      const currentTime = (duration * percent) / 1000
+      radioRef.current.currentTime = currentTime
+      setCurrenTime(handleDurationTime(currentTime * 1000))
+      setProgress(val)
+      setSliderChanging(true)
     },
     [duration]
-  );
+  )
   const afterSliderChange = useCallback(
     (val) => {
-      const percent = val / 100;
-      const currentTime = (duration * percent) / 1000;
-      radioRef.current.currentTime = currentTime;
-      setCurrenTime(handleDurationTime(currentTime * 1000));
-      setProgress(val);
-      setSliderChanging(false);
+      const percent = val / 100
+      const currentTime = (duration * percent) / 1000
+      radioRef.current.currentTime = currentTime
+      setCurrenTime(handleDurationTime(currentTime * 1000))
+      setProgress(val)
+      setSliderChanging(false)
       if (!state.isPlay) {
-        dispatch(changePlayStatus(true));
-        radioRef.current.play();
+        dispatch(changePlayStatus(true))
+        radioRef.current.play()
       }
     },
     [duration, state.isPlay, dispatch]
-  );
+  )
   const handlePlayAction = () => {
     if (state.playAction === 2) {
-      return dispatch(changePlayAction(0));
+      return dispatch(changePlayAction(0))
     }
-    dispatch(changePlayAction(state.playAction + 1));
-  };
+    dispatch(changePlayAction(state.playAction + 1))
+  }
   const handleVolumeChange = (val) => {
-    setVolume(val / 100);
-    radioRef.current.volume = val / 100;
-  };
+    setVolume(val / 100)
+    radioRef.current.volume = val / 100
+  }
   const handleCoverClick = () => {
-    history.push('/discover/songDetail');
-  };
+    history.push('/discover/songDetail')
+  }
   return (
     <CBPlayerWrapper className="playbar_sprite">
       <div className="content">
@@ -236,7 +231,7 @@ export default memo(function CBPlayer() {
                 : require('@/assets/img/download0.png')
             }
             onClick={(e) => {
-              handleCoverClick();
+              handleCoverClick()
             }}
             alt=""
             className={classnames('image', { isPlay: state.isPlay })}
@@ -270,20 +265,20 @@ export default memo(function CBPlayer() {
             <i
               className="iconfont icon-favor"
               onClick={(e) => {
-                message.error('功能尚未开发，别瞎点');
+                message.error('功能尚未开发，别瞎点')
               }}
             ></i>
             <i
               className="iconfont icon-share"
               onClick={(e) => {
-                message.error('功能尚未开发，别瞎点');
+                message.error('功能尚未开发，别瞎点')
               }}
             ></i>
             <i
               className="iconfont icon-volume"
               onClick={(e) => {
-                setShowVolumeSlider(!showVolumeSlider);
-                setVolume(radioRef.current.volume);
+                setShowVolumeSlider(!showVolumeSlider)
+                setVolume(radioRef.current.volume)
               }}
             ></i>
             <i
@@ -297,7 +292,7 @@ export default memo(function CBPlayer() {
             <i
               className="iconfont icon-playlist"
               onClick={(e) => {
-                setShowPanel(!showPanel);
+                setShowPanel(!showPanel)
               }}
             ></i>
             <span className="playlist_length">{state.playList.length}</span>
@@ -318,14 +313,14 @@ export default memo(function CBPlayer() {
           <audio
             ref={radioRef}
             onTimeUpdate={(e) => {
-              timeUpdate(e);
+              timeUpdate(e)
             }}
-            src={state.songUrl}
             onEnded={handleTimeEnded}
+            id="audio"
           ></audio>
           {showPanel && <PlayPanel></PlayPanel>}
         </div>
       </div>
     </CBPlayerWrapper>
-  );
-});
+  )
+})
