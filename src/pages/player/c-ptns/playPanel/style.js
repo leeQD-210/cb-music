@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const PlayPanelWrapper = styled.div`
   position: fixed;
   display: flex;
@@ -47,6 +47,8 @@ export const PlayPanelWrapper = styled.div`
       height: 270px;
       overflow-y: scroll;
       overflow-x: hidden;
+      scrollbar-width: 3px;
+      scrollbar-color: #000 transparent;
       // 滚动条样式
       &::-webkit-scrollbar {
         position: relative;
@@ -130,4 +132,4 @@ export const PlayPanelWrapper = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
-`;
+`

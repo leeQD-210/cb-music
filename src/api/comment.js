@@ -1,12 +1,13 @@
-import { request } from '@/request';
-export const getSongComment = (id, limit, pageNo) => {
+import { request } from '@/request'
+// 评论
+export const getComment = (id, limit, pageNo, type) => {
   return request({
     method: 'get',
-    url: '/comment/music',
+    url: `/comment/${type}`,
     params: {
       id,
       limit,
-      offset: (pageNo - 1) * limit,
-    },
-  });
-};
+      offset: (pageNo - 1) * limit
+    }
+  })
+}

@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-export const ListCoverWrapper = styled.div`
+export const PlayListCoverWrapper = styled.div`
   width: 100%;
   display: flex;
   background: #fff;
   padding: 10px 5px;
+  cursor: pointer;
   cursor: pointer;
   &:nth-child(2n + 1) {
     background: #fafafa;
@@ -14,20 +15,10 @@ export const ListCoverWrapper = styled.div`
     align-items: center;
     justify-content: center;
   }
-  .hot {
-    color: #e26b0a;
-  }
   .songs_info {
     width: 366px;
     display: flex;
     align-items: center;
-    .img {
-      width: 50px;
-      height: 50px;
-      margin-right: 20px;
-      flex-shrink: 0;
-      flex-basis: auto;
-    }
     .iconfont {
       width: 16px;
       margin-right: 10px;
