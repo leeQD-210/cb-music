@@ -1,32 +1,23 @@
 import React, { memo } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
-import { SongListWrapper } from './style'
+import { AlbumSongListWrapper } from './style'
 import PlayListCover from '@/components/playListCover'
-export default memo(function SongList() {
+export default memo(function AlbumSongList() {
   const state = useSelector(
     (state) => ({
-      playListDetail: state.getIn(['playList', 'playListDetail']),
-      songList: state.getIn(['playList', 'songList'])
+      albumDetail: state.getIn(['album', 'albumDetail']),
+      albumSongs: state.getIn(['album', 'albumSongs'])
     }),
     shallowEqual
   )
   return (
-    <SongListWrapper>
+    <AlbumSongListWrapper>
       <div className="list_top">
         <div className="top_left">
           <span className="top_title">歌曲列表</span>
           <span className="song_total">
-            {state.playListDetail.trackCount && state.playListDetail.trackCount}
+            {state.albumDetail.songs && state.albumDetail.songs.length}
             首歌
-          </span>
-        </div>
-        <div className="top_right">
-          <span className="play_count">
-            播放：&nbsp;&nbsp;
-            <span className="count">
-              {state.playListDetail.playCount && state.playListDetail.playCount}
-            </span>
-            次
           </span>
         </div>
       </div>
@@ -38,8 +29,8 @@ export default memo(function SongList() {
         <span className="album">专辑</span>
       </div>
       <div className="list_content">
-        {state.songList.length > 0 &&
-          state.songList.map((item, index) => {
+        {state.albumSongs.length > 0 &&
+          state.albumSongs.map((item, index) => {
             return (
               <PlayListCover
                 info={item}
@@ -49,6 +40,6 @@ export default memo(function SongList() {
             )
           })}
       </div>
-    </SongListWrapper>
+    </AlbumSongListWrapper>
   )
 })

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-export const PlayListDetailWrapper = styled.div`
+export const CBAlbumDetailWrapper = styled.div`
   width: 1000px;
   margin: 0 auto;
   background-color: #fff;

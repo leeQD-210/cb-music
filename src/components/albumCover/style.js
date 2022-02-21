@@ -6,6 +6,7 @@ export const CoverWrapper = styled.div`
   justify-content: center;
   width: ${(props) => props.coverWidth};
   margin-left: ${(props) => props.marginLeft};
+  cursor: pointer;
   &:nth-child(5n + 1) {
     margin-left: 0;
   }

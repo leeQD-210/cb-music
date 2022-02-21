@@ -6,7 +6,13 @@ const defaultState = Map({
   songCommentsTotal: 0,
   mvComments: [],
   mvHotComments: [],
-  mvCommentsTotal: 0
+  mvCommentsTotal: 0,
+  playListComments: [],
+  playListHotComments: [],
+  playListCommentsTotal: 0,
+  albumComments: [],
+  albumHotComments: [],
+  albumCommentsTotal: 0
 })
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
@@ -22,6 +28,18 @@ export default function reducer(state = defaultState, action) {
       return state.set('mvHotComments', action.mvHotComments)
     case actionTypes.CHANGE_MV_COMMENT_TOTAL:
       return state.set('mvCommentsTotal', action.mvCommentsTotal)
+    case actionTypes.CHANGE_PLAYLIST_COMMENT:
+      return state.set('playListComments', action.playListComments)
+    case actionTypes.CHANGE_PLAYLIST_HOT_COMMENT:
+      return state.set('playListHotComments', action.playListHotComments)
+    case actionTypes.CHANGE_PLAYLIST_COMMENT_TOTAL:
+      return state.set('playListCommentsTotal', action.playListCommentsTotal)
+    case actionTypes.CHANGE_ALBUM_COMMENT:
+      return state.set('albumComments', action.albumComments)
+    case actionTypes.CHANGE_ALBUM_HOT_COMMENT:
+      return state.set('albumHotComments', action.albumHotComments)
+    case actionTypes.CHANGE_ALBUM_COMMENT_TOTAL:
+      return state.set('albumCommentsTotal', action.albumCommentsTotal)
     default:
       return state
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-export const SongListWrapper = styled.div`
+export const AlbumSongListWrapper = styled.div`
   padding: 30px;
   padding-top: 0;
   .list_top {
@@ -14,16 +14,6 @@ export const SongListWrapper = styled.div`
       }
       .song_total {
         color: #999;
-      }
-    }
-    .top_right {
-      display: flex;
-      align-items: center;
-      .play_count {
-        color: #999;
-        .count {
-          color: #e26b0a;
-        }
       }
     }
   }

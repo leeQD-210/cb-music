@@ -17,3 +17,12 @@ export const getSongList = (id) => {
     }
   })
 }
+export const getRelatedSongList = (id) => {
+  return request({
+    method: 'get',
+    url: '/related/playlist',
+    params: {
+      id
+    }
+  })
+}

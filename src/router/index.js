@@ -29,6 +29,9 @@ const CBMvDetail = React.lazy((_) =>
 const CBPlayListDetail = React.lazy((_) =>
   import('@/pages/discover/c-pages/playListDetail')
 )
+const CBAlbumDetail = React.lazy((_) =>
+  import('@/pages/discover/c-pages/albumDetail')
+)
 const routes = [
   {
     path: '/',
@@ -79,6 +82,10 @@ const routes = [
       {
         path: '/discover/playlistDetail',
         component: CBPlayListDetail
+      },
+      {
+        path: '/discover/albumDetail',
+        component: CBAlbumDetail
       }
     ]
   },

@@ -1,6 +1,7 @@
 import { getSongDetail, getSongLyric, getPlayUrl } from '@/api/player'
 import { parseLyric } from '@/utils/parseLyric'
 import * as actionTypes from './constant'
+import { message } from 'antd'
 // 添加歌曲到播放列表
 const changePlayList = (playList) => ({
   type: actionTypes.CHANGE_PLAY_LIST,
@@ -61,6 +62,7 @@ export const addSongByTracks = (tracks) => {
       }
     })
     dispatch(changePlayList([...playList, ...newTracks]))
+    message.success({ content: '歌曲已添加至播放列表！' })
   }
 }
 // 切换播放歌曲

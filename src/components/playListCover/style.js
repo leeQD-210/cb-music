@@ -10,13 +10,13 @@ export const PlayListCoverWrapper = styled.div`
     background: #fafafa;
   }
   .index {
-    width: 55px;
+    width: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .songs_info {
-    width: 366px;
+    width: 320px;
     display: flex;
     align-items: center;
     .iconfont {
@@ -26,8 +26,9 @@ export const PlayListCoverWrapper = styled.div`
       flex-basis: auto;
     }
     .song_name {
-      max-width: 320px;
+      max-width: 250px;
       white-space: nowrap;
+      text-overflow: ellipsis;
       overflow: hidden;
       margin-right: 5px;
       min-width: 60px;
@@ -35,7 +36,7 @@ export const PlayListCoverWrapper = styled.div`
       flex-basis: auto;
     }
     .alia {
-      max-width: 180px;
+      max-width: 140px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -60,17 +61,27 @@ export const PlayListCoverWrapper = styled.div`
   }
   .duration {
     width: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .artist {
-    width: 170px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: 24px;
+    /* justify-content: center; */
+  }
+  .artist {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 24px;
+  }
+  .albums {
+    width: 150px;
+    /* display: flex;
+    align-items: center;
+    justify-content: left; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 24px;
   }
 `

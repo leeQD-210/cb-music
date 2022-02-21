@@ -24,6 +24,30 @@ const changeMvCommentTotal = (mvCommentsTotal) => ({
   type: actionTypes.CHANGE_MV_COMMENT_TOTAL,
   mvCommentsTotal
 })
+const changePlayListComment = (playListComments) => ({
+  type: actionTypes.CHANGE_PLAYLIST_COMMENT,
+  playListComments
+})
+const changePlayListHotComment = (playListHotComments) => ({
+  type: actionTypes.CHANGE_PLAYLIST_HOT_COMMENT,
+  playListHotComments
+})
+const changePlayListCommentTotal = (playListCommentsTotal) => ({
+  type: actionTypes.CHANGE_PLAYLIST_COMMENT_TOTAL,
+  playListCommentsTotal
+})
+const changeAlbumComment = (albumComments) => ({
+  type: actionTypes.CHANGE_ALBUM_COMMENT,
+  albumComments
+})
+const changeAlbumHotComment = (albumHotComments) => ({
+  type: actionTypes.CHANGE_ALBUM_HOT_COMMENT,
+  albumHotComments
+})
+const changeAlbumCommentTotal = (albumCommentsTotal) => ({
+  type: actionTypes.CHANGE_ALBUM_COMMENT_TOTAL,
+  albumCommentsTotal
+})
 export const getCommentAction = (id, limit, pageNo, type) => {
   return (dispatch) => {
     switch (type) {
@@ -46,6 +70,20 @@ export const getCommentAction = (id, limit, pageNo, type) => {
           dispatch(changeMvComment(res.comments))
           pageNo === 1 && dispatch(changeMvHotComment(res.hotComments))
           dispatch(changeMvCommentTotal(res.total))
+        })
+        break
+      case 'playlist':
+        getComment(id, limit, pageNo, type).then((res) => {
+          dispatch(changePlayListComment(res.comments))
+          pageNo === 1 && dispatch(changePlayListHotComment(res.hotComments))
+          dispatch(changePlayListCommentTotal(res.total))
+        })
+        break
+      case 'album':
+        getComment(id, limit, pageNo, type).then((res) => {
+          dispatch(changeAlbumComment(res.comments))
+          pageNo === 1 && dispatch(changeAlbumHotComment(res.hotComments))
+          dispatch(changeAlbumCommentTotal(res.total))
         })
         break
       default:

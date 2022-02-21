@@ -56,7 +56,7 @@ const RankList = memo((props) => {
             )
           })}
         <div className="item bottom">
-          <a href="/todo">查看全部 &gt;</a>
+          <a href="#/discover/ranking">查看全部 &gt;</a>
         </div>
       </ListWrapper>
     </RankListWrapper>
