@@ -10,6 +10,7 @@ import commentReducer from '@/pages/discover/c-pages/store/reducer'
 import mvReducer from '@/pages/discover/c-pages/mvDetail/store/reducer'
 import playListReducer from '@/pages/discover/c-pages/playListDetail/store/reducer'
 import albumReducer from '@/pages/discover/c-pages/albumDetail/store/reducer'
+import artistDetailReducer from '@/pages/discover/c-pages/artistDetail/store/reducer'
 export default combineReducers({
   recommend: recommendReducer,
   player: playerReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
   comment: commentReducer,
   mv: mvReducer,
   playList: playListReducer,
-  album: albumReducer
+  album: albumReducer,
+  artistDetail: artistDetailReducer
 })

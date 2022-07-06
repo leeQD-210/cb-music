@@ -3,8 +3,9 @@ export const VideoCoverWrapper = styled.div`
   position: relative;
   width: 159px;
   margin-bottom: 20px;
-  margin-left: 17px;
-  &:nth-child(5n + 1) {
+  margin-left: ${(props) => props.marginLeft};
+  cursor: pointer;
+  &:nth-child(${(props) => props.lineNums}n + 1) {
     margin-left: 0;
   }
   .img {

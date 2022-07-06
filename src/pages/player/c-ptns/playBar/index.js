@@ -196,6 +196,9 @@ export default memo(function CBPlayer() {
   const handleCoverClick = () => {
     history.push('/discover/songDetail')
   }
+  const pushArtistDetail = (id) => {
+    history.push(`/discover/artistDetail/?id=${id}`)
+  }
   return (
     <CBPlayerWrapper className="playbar_sprite">
       <div className="content">
@@ -239,7 +242,12 @@ export default memo(function CBPlayer() {
           <div className="playInfo">
             <div className="info">
               <span className="songName">{state.currentSong.name || ''}</span>
-              <span className="name">
+              <span
+                className="name"
+                onClick={(e) => {
+                  pushArtistDetail(state.currentSong.ar[0].id)
+                }}
+              >
                 {(state.currentSong.ar && state.currentSong.ar[0].name) || ''}
               </span>
             </div>

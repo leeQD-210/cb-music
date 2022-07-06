@@ -1,11 +1,14 @@
-import React, { memo } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { RankingListWrapper } from './style';
-import RankingListCover from '@/components/rankingListCover';
+import React, { memo, useEffect } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { RankingListWrapper } from './style'
+import RankingListCover from '@/components/rankingListCover'
 export default memo(function RankingList() {
   const state = useSelector((state) => {
-    return { playListDetail: state.getIn(['ranking', 'playListDetail']) };
-  }, shallowEqual);
+    return {
+      playListDetail: state.getIn(['ranking', 'playListDetail']),
+      songList: state.getIn(['ranking', 'songList'])
+    }
+  }, shallowEqual)
   return (
     <RankingListWrapper>
       <div className="titleWrap">
@@ -20,11 +23,17 @@ export default memo(function RankingList() {
       </div>
       <div className="divider"></div>
       <div className="ranking_list">
-        {state.playListDetail.tracks &&
-          state.playListDetail.tracks.map((item, index) => {
-            return <RankingListCover info={item} key={item.id} index={index}></RankingListCover>;
+        {state.songList.length > 0 &&
+          state.songList.map((item, index) => {
+            return (
+              <RankingListCover
+                info={item}
+                key={item.id}
+                index={index}
+              ></RankingListCover>
+            )
           })}
       </div>
     </RankingListWrapper>
-  );
-});
+  )
+})

@@ -29,6 +29,7 @@ export default memo(function Artist() {
               image={item.picUrl}
               alias={item.alias[0]}
               name={item.name}
+              id={item.id}
             ></RecommendArtist>
           )
         })}

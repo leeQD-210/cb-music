@@ -13,9 +13,12 @@ export default memo(function RankingListCover(props) {
   }
   const history = useHistory()
   const handleMvClick = (e, id, type) => {
-    console.log(e)
     e.stopPropagation()
     history.push(`/discover/mvDetail/?id=${id}&type=${type}`)
+  }
+  const handleArtistClick=(e,id)=>{
+    e.stopPropagation()
+    history.push(`/discover/artistDetail/?id=${id}`)
   }
   return (
     <ListCoverWrapper
@@ -41,7 +44,14 @@ export default memo(function RankingListCover(props) {
         )}
       </div>
       <div className="duration">{handleDurationTime(info.dt)}</div>
-      <div className="artist">{info.ar[0].name}</div>
+      <div
+        className="artist"
+        onClick={(e) => {
+          handleArtistClick(e, info.ar[0].id)
+        }}
+      >
+        {info.ar[0].name}
+      </div>
     </ListCoverWrapper>
   )
 })

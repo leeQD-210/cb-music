@@ -20,6 +20,7 @@ export const getPlayListDetailAction = (id) => {
     message.loading({ content: '努力加载中...', key })
     getPlayListDetail(id).then((res) => {
       dispatch(changePlayListDetail(res.playlist))
+      dispatch(changeSongList(res.playlist.tracks))
       const idArr = res.playlist.trackIds.map((item) => {
         return item.id
       })

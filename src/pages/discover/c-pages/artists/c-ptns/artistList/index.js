@@ -40,7 +40,7 @@ export default memo(function ArtistList() {
         <div className="top">
           <span className="title">{state.currentTitle}</span>
         </div>
-        {state.currentType !== -1 && (
+        {state.currentArea !== -1 && (
           <div className="category">
             {alphaList.length > 0 &&
               alphaList.map((item) => {
@@ -76,7 +76,7 @@ export default memo(function ArtistList() {
             state.artistList.slice(10, 100).map((item) => {
               return (
                 <div className="name_wrap" key={item.id}>
-                  <NavLink className="name" to={'/'}>
+                  <NavLink className="name" to={`/discover/artistDetail/?id=${item.id}`}>
                     {item.name}
                   </NavLink>
                   <i className="iconfont icon-user"></i>

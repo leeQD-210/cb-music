@@ -25,6 +25,7 @@ export default memo(function Dj() {
             image={item.avatarUrl}
             alias={item.nickName}
             name={'dj'}
+            id={item.id}
           ></RecommendArtist>
         )
       })}

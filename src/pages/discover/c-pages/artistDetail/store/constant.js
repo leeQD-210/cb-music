@@ -1,0 +1,6 @@
+export const CHANGE_ARTIST_DETAIL = 'artist/changeArtistDetail'
+export const CHANGE_ARTIST_HOTSONGS = 'artist/changeArtistHotSongs'
+export const CHANGE_ARTIST_ALBUMS = 'artist/changeArtistAlbums'
+export const CHANGE_ARTIST_MV = 'artist/changeArtistMv'
+export const CHANGE_ARTIST_DESC = 'artist/changeArtistDesc'
+export const CHANGE_TOP_ARTIST = 'artist/changeTopArtist'

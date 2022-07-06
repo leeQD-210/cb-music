@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const CoverWrapper = styled.div`
   display: flex;
   position: relative;
@@ -7,7 +7,7 @@ export const CoverWrapper = styled.div`
   width: ${(props) => props.coverWidth};
   margin-left: ${(props) => props.marginLeft};
   cursor: pointer;
-  &:nth-child(5n + 1) {
+  &:nth-child(${(props) => (props.lineNums ? props.lineNums : 5)}n + 1) {
     margin-left: 0;
   }
   .image {
@@ -35,4 +35,4 @@ export const CoverWrapper = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-`;
+`

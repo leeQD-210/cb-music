@@ -5,6 +5,7 @@ export const ArtistCoverWrapper = styled.div`
   width: 130px;
   margin-left: 36px;
   margin-bottom: 15px;
+  cursor: pointer;
   &:nth-child(5n + 1) {
     margin-left: 0;
   }

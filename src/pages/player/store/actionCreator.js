@@ -110,8 +110,8 @@ export const deleteSong = (type, index) => {
     const playList = getState().getIn(['player', 'playList'])
     switch (type) {
       case 'single':
-        playList.splice(index)
-        dispatch(changePlayList(playList))
+        playList.splice(index,1)
+        dispatch(changePlayList([...playList]))
         if (playList[index - 1]) {
           dispatch(changeSongIndex(index - 1))
         } else {

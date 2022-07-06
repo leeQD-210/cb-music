@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 export const CBPlayerWrapper = styled.div`
   position: fixed;
   bottom: 0;
@@ -69,6 +69,8 @@ export const CBPlayerWrapper = styled.div`
           .name {
             color: #666;
             font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
           }
         }
         .progressBar {
@@ -202,4 +204,4 @@ export const CBPlayerWrapper = styled.div`
       }
     }
   }
-`;
+`
